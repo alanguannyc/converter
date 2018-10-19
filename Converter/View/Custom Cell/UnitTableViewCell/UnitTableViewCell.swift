@@ -10,6 +10,8 @@ import UIKit
 
 class UnitTableViewCell: UITableViewCell {
     
+
+    @IBOutlet weak var UnitCalculatorView: UIView!
     @IBOutlet weak var backspaceButton: UIButton!
     
     @IBOutlet weak var buttonLayer: UIButton!

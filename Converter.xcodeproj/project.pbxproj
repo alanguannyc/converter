@@ -24,6 +24,7 @@
 		E792EC20217916E000A4CFE2 /* UnitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E792EC1F217916E000A4CFE2 /* UnitTableViewCell.xib */; };
 		E792EC24217936EB00A4CFE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E792EC23217936EB00A4CFE2 /* Assets.xcassets */; };
 		E792EC2621793D6100A4CFE2 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792EC2521793D6100A4CFE2 /* RoundButton.swift */; };
+		E792EC28217A452A00A4CFE2 /* StackViewToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792EC27217A452A00A4CFE2 /* StackViewToggle.swift */; };
 		E7C3861B217653080043BC78 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C3861A217653080043BC78 /* UIColor.swift */; };
 		E7C3861D217662560043BC78 /* ScaleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C3861C217662560043BC78 /* ScaleSegue.swift */; };
 		E7C3861F217671720043BC78 /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C3861E217671720043BC78 /* DismissAnimator.swift */; };
@@ -48,6 +49,7 @@
 		E792EC1F217916E000A4CFE2 /* UnitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnitTableViewCell.xib; sourceTree = "<group>"; };
 		E792EC23217936EB00A4CFE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E792EC2521793D6100A4CFE2 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		E792EC27217A452A00A4CFE2 /* StackViewToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewToggle.swift; sourceTree = "<group>"; };
 		E7C3861A217653080043BC78 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E7C3861C217662560043BC78 /* ScaleSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleSegue.swift; sourceTree = "<group>"; };
 		E7C3861E217671720043BC78 /* DismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimator.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				E748A07B217535DD00792BAA /* UnitViewController.swift */,
 				E792EC142177B1E600A4CFE2 /* UnitViewControllerData.swift */,
 				E792EC162177B47900A4CFE2 /* UnitViewControllerDragDrop.swift */,
+				E792EC27217A452A00A4CFE2 /* StackViewToggle.swift */,
 			);
 			path = UnitViewController;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				E748A0722171296B00792BAA /* TableViewCell.swift in Sources */,
 				E7C3861B217653080043BC78 /* UIColor.swift in Sources */,
 				E792EC2621793D6100A4CFE2 /* RoundButton.swift in Sources */,
+				E792EC28217A452A00A4CFE2 /* StackViewToggle.swift in Sources */,
 				E792EC1E2179169A00A4CFE2 /* UnitTableViewCell.swift in Sources */,
 				E792EC152177B1E600A4CFE2 /* UnitViewControllerData.swift in Sources */,
 				E7C3861D217662560043BC78 /* ScaleSegue.swift in Sources */,

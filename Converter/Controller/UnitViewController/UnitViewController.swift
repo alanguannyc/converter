@@ -34,8 +34,10 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         contentView.backgroundColor = colorToPass
         itemTableView.backgroundColor = UIColor.clear
         self.tableHeight.constant = 300;
-
-        self.itemTableView.estimatedRowHeight = UITableView.automaticDimension;
+        
+       
+        
+        self.itemTableView.estimatedRowHeight = UITableView.automaticDimension
         
         // Auto Update the size of the UITableView
         itemTableView.reloadData()
@@ -75,6 +77,8 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
+    var cellIsHidden : Bool = false
+    var selectedIndex : Int = -1
    
     @IBAction func dismissButtoned(_ sender: Any) {
 
@@ -87,6 +91,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         swipeUpToClose(sender: sender)
     }
     
+  
     
     
     public func swipeUpToClose (sender: UIPanGestureRecognizer) {
