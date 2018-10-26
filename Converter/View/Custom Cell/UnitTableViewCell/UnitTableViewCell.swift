@@ -21,15 +21,47 @@ class UnitTableViewCell: UITableViewCell {
     @IBOutlet weak var NumberLabel: UILabel!
     
     @IBAction func numberButtoned(_ sender: UIButton) {
+        if NumberLabel.text == String(0.0) {
+            NumberLabel.text = sender.currentTitle!
+        } else {
+            NumberLabel.text = NumberLabel.text! + sender.currentTitle!
+        }
+        
         
     }
     
     @IBAction func operationButtoned(_ sender: UIButton) {
         
     }
+    @IBAction func clearButtoned(_ sender: UIButton) {
+        NumberLabel.text = String(0.0)
+    }
+    @IBAction func dotButtoned(_ sender: UIButton) {
+        if NumberLabel.text == String(0.0) {
+            NumberLabel.text = "0."
+        }
+        else{
+            if NumberLabel.text?.range(of: ".") == nil{
+                NumberLabel.text = NumberLabel.text! + "."
+            }
+        }
+    }
     
+    @IBAction func backspaceButtoned(_ sender: UIButton) {
+        if NumberLabel.text == String(0.0) {
+            NumberLabel.text = String(0.0)
+        } else if (NumberLabel.text?.count)! > 1 {
+            NumberLabel.text = String(NumberLabel.text!.dropLast())
+        } else {
+            NumberLabel.text = String(0.0)
+        }
+
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+       
+        
         // Initialization code
         backspaceButton.setImage(UIImage(named: "backspace"), for:  .normal)
         backspaceButton.imageView?.contentMode = .scaleAspectFit
@@ -42,4 +74,6 @@ class UnitTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+   
+    
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -22,43 +23,71 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var titleLabel: UILabel!
     var titleName : String = ""
     var colorToPass : UIColor?
+    var selectedCategory : UnitCategory?
+    {
+        didSet{
+            loadItems()
+        }
+    }
+    var unitItems : Results<UnitItem>?
     
-    var items = ["Temperature", "Cooking", "Currency", "Temperature", "Cooking", "Currency", "Temperature", "Cooking", "Currency", "Temperature", "Cooking", "Currency"]
     
     var unitModel = UnitModel()
     
+   
+    
     @IBOutlet weak var itemTableView: UITableView!
     
+    
+   
     override func viewWillAppear(_ animated: Bool) {
+
+//        DispatchQueue.main.async {
+//            self.itemTableView.reloadData()
+//        }
+//        unitItems = selectedCategory?.items.sorted(byKeyPath: "name", ascending: true)
+        
+        
         titleLabel.text = titleName
         contentView.backgroundColor = colorToPass
         itemTableView.backgroundColor = UIColor.clear
+        
         self.tableHeight.constant = 300;
-        
-       
-        
         self.itemTableView.estimatedRowHeight = UITableView.automaticDimension
-        
-        // Auto Update the size of the UITableView
-        itemTableView.reloadData()
-        itemTableView.layoutIfNeeded()
-        
-        
+        bottomHeight.constant = 10
         tableHeight.constant = itemTableView.contentSize.height
-       bottomHeight.constant = 10
        
     }
-    
+    override var preferredContentSize: CGSize {
+        get {
+            self.itemTableView.layoutIfNeeded()
+            return self.itemTableView.contentSize
+        }
+        set {}
+    }
+    func loadItems() {
+        unitItems = selectedCategory?.items.sorted(byKeyPath: "name", ascending: true)
+//        itemTableView.reloadData()
+    }
     // Auto Update the size of the UITableView 
     override func viewWillLayoutSubviews() {
+        
+        super.updateViewConstraints()
+        
+    }
+   
+    override func updateViewConstraints() {
         super.updateViewConstraints()
         
     }
     
     override func viewDidLoad() {
+       
         super.viewDidLoad()
         
-         itemTableView.register(UINib(nibName: "UnitTableViewCell", bundle: nil), forCellReuseIdentifier: "UnitTableViewCell")
+        
+        
+        itemTableView.register(UINib(nibName: "UnitTableViewCell", bundle: nil), forCellReuseIdentifier: "UnitTableViewCell")
         itemTableView.separatorColor = UIColor.lightGray
         
         itemTableView.dragInteractionEnabled = true
@@ -68,8 +97,20 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         itemTableView.dragDelegate = self
         itemTableView.dropDelegate = self
+        
+       
         // Do any additional setup after loading the view.
-         
+        
+        
+        
+        
+        // Auto Update the size of the UITableView
+        itemTableView.reloadData()
+        itemTableView.layoutIfNeeded()
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        tableView.layoutIfNeeded()
     }
 
     override func didReceiveMemoryWarning() {
@@ -113,5 +154,8 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
+    
+    
+
 
 }

@@ -7,16 +7,19 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    var categoryItem = ["Temperature", "Cooking", "Currency"]
     
-    
+    var categories : Results<UnitCategory>?
+    let realm = try! Realm()
+    // You only need to do this once (per thread)
     @IBOutlet weak var categoryTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         if #available(iOS 9.0, *) {
             categoryTableView.cellLayoutMarginsFollowReadableWidth = true
         }
@@ -32,17 +35,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Do any additional setup after loading the view, typically from a nib.
        
-self.transitioningDelegate = self
+        self.transitioningDelegate = self
+        
+        
+
+
+        loadCategory()
         
     }
     
+    func loadCategory() {
+//        "id": Int(category["id"]! as! String)! as! Int,
+        let categoryModel = CategoryModel()
+        
+        for category in categoryModel.categoryDataset {
+
+            try! realm.write {
+                realm.create(UnitCategory.self, value: [ "name": category["name"] as! String, "items" : category["items"]], update: true)
+            }
+
+        }
+        
+        categories = realm.objects(UnitCategory.self)
+        
+        categoryTableView.reloadData()
+    }
+    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryItem.count
+       return categories?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! TableViewCell
-        cell.cellLabel.text = categoryItem[indexPath.row]
+        cell.cellLabel.text = categories?[indexPath.row].name
         cell.cellImage.image = UIImage(named: "temp")
         cell.customBackgroundColor = UIColor(hexString: "941100")
         
@@ -60,10 +85,11 @@ self.transitioningDelegate = self
 //        cell.contentView.addSubview(whiteRoundedView)
 //        cell.contentView.sendSubview(toBack: whiteRoundedView)
         
-        
         let backgroundView = UIView()
-        backgroundView.backgroundColor = cell.cellBackground.backgroundColor
+        //        backgroundView.backgroundColor = cell.cellBackground.backgroundColor
+        backgroundView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         cell.selectedBackgroundView = backgroundView
+        
         
         return cell
      
@@ -88,8 +114,8 @@ self.transitioningDelegate = self
             destinationVC.transitioningDelegate = self
             destinationVC.modalPresentationStyle = .custom
             if let rowIndex = categoryTableView.indexPathForSelectedRow?.row {
-                
-                    destinationVC.titleName = categoryItem[rowIndex]
+                destinationVC.selectedCategory = categories?[rowIndex]
+                destinationVC.titleName = (categories?[rowIndex].name)!
                 if let cell = categoryTableView.cellForRow(at: categoryTableView.indexPathForSelectedRow!)! as? TableViewCell {
                     print(cell)
                     destinationVC.colorToPass = cell.customBackgroundColor

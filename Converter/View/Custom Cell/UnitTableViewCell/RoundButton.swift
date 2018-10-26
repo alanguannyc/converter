@@ -20,7 +20,7 @@ class RoundButton:  UIButton {
     
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.clear
+            backgroundColor = isHighlighted ? UIColor.lightGray.withAlphaComponent(0.75) : UIColor.clear
         }
     }
     

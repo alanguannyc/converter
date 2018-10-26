@@ -11,25 +11,12 @@ import Foundation
 struct UnitModel {
     private(set) var placeNames = [
         "Adler Planetarium",
-        "Art Institute of Chicago",
-        "Field Museum of Natural History",
-        "Lincoln Park Zoo",
-        "Millennium Park",
-        "Museum of Science and Industry",
-        "Navy Pier",
-        "Shedd Aquarium",
-        "Wrigley Field",
-        "Adler Planetarium",
-        "Art Institute of Chicago",
-        "Field Museum of Natural History",
-        "Lincoln Park Zoo",
-        "Millennium Park",
-        "Museum of Science and Industry",
-        "Navy Pier",
-        "Shedd Aquarium",
-        "Wrigley Field"
+        "Art Institute of Chicago"
+        
     ]
     
+    
+
     /// The traditional method for rearranging rows in a table view.
     mutating func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
         guard sourceIndex != destinationIndex else { return }
