@@ -55,7 +55,7 @@ extension UnitViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             var indexPaths = [IndexPath]()
             for (index, item) in stringItems.enumerated() {
                 let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
-                self.unitModel.addItem(item, at: indexPath.row)
+//                self.unitModel.addItem(item, at: indexPath.row)
                 indexPaths.append(indexPath)
             }
             

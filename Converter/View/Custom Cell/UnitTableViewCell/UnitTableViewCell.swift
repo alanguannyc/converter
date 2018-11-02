@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol typerProtocol {
+    func numberButtonTapped(newBaseValue:  Measurement<UnitLength>)
+}
+
 class UnitTableViewCell: UITableViewCell {
     
 
@@ -20,21 +24,33 @@ class UnitTableViewCell: UITableViewCell {
     
     @IBOutlet weak var NumberLabel: UILabel!
     
+    var typerDelegate : typerProtocol?
+    var typerLengthBaseValue = Measurement(value: 0.0, unit: UnitLength.meters)
+    
     @IBAction func numberButtoned(_ sender: UIButton) {
-        if NumberLabel.text == String(0.0) {
+        
+        if NumberLabel.text == String("0") || NumberLabel.text == String("0.0") {
             NumberLabel.text = sender.currentTitle!
+
         } else {
             NumberLabel.text = NumberLabel.text! + sender.currentTitle!
         }
         
+        var initalValue = Length(rawValue: UnitLabel.text!)
+        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
+//        NumberLabel.text = String(initalValue!.convertedValue(basevalue: typerLengthBaseValue))
         
+        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
     }
     
     @IBAction func operationButtoned(_ sender: UIButton) {
-        
+        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
     }
     @IBAction func clearButtoned(_ sender: UIButton) {
         NumberLabel.text = String(0.0)
+        typerLengthBaseValue = Measurement(value: 0.0, unit: UnitLength.meters)
+        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
+
     }
     @IBAction func dotButtoned(_ sender: UIButton) {
         if NumberLabel.text == String(0.0) {
@@ -55,7 +71,10 @@ class UnitTableViewCell: UITableViewCell {
         } else {
             NumberLabel.text = String(0.0)
         }
-
+        
+        var initalValue = Length(rawValue: UnitLabel.text!)
+        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
+        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
     }
     override func awakeFromNib() {
         super.awakeFromNib()

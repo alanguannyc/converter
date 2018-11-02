@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct UnitModel {
     private(set) var placeNames = [
@@ -15,12 +16,15 @@ struct UnitModel {
         
     ]
     
+    let realm = try! Realm()
     
 
     /// The traditional method for rearranging rows in a table view.
     mutating func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
         guard sourceIndex != destinationIndex else { return }
         
+        
+//        realm.objects(UnitItem).move(from: Int, to: Int)
         let place = placeNames[sourceIndex]
         placeNames.remove(at: sourceIndex)
         placeNames.insert(place, at: destinationIndex)

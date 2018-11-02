@@ -53,12 +53,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             try! realm.write {
                 realm.create(UnitCategory.self, value: [ "name": category["name"] as! String, "items" : category["items"]], update: true)
             }
-
+            
         }
+        
         
         categories = realm.objects(UnitCategory.self)
         
         categoryTableView.reloadData()
+
     }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

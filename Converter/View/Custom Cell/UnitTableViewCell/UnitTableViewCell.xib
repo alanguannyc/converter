@@ -37,9 +37,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hj1-7M-a03">
-                                        <rect key="frame" x="309" y="25.5" width="30" height="29.5"/>
-                                        <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hj1-7M-a03">
+                                        <rect key="frame" x="309.5" y="28" width="29.5" height="24.5"/>
+                                        <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="21"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -191,7 +191,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="oKt-Ds-a7C">
                                                 <rect key="frame" x="0.0" y="86" width="212" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1x4-ff-dfH" customClass="RoundButton" customModule="Converter" customModuleProvider="target">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1x4-ff-dfH" customClass="RoundButton" customModule="Converter" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -202,7 +202,7 @@
                                                             <action selector="numberButtoned:" destination="y2g-7v-RlR" eventType="touchUpInside" id="AEO-0U-d2A"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3u-TG-KDR" customClass="RoundButton" customModule="Converter" customModuleProvider="target">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3u-TG-KDR" customClass="RoundButton" customModule="Converter" customModuleProvider="target">
                                                         <rect key="frame" x="43" y="0.0" width="40" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -213,7 +213,7 @@
                                                             <action selector="numberButtoned:" destination="y2g-7v-RlR" eventType="touchUpInside" id="FRL-lP-z3y"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoz-XQ-8YF" customClass="RoundButton" customModule="Converter" customModuleProvider="target">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoz-XQ-8YF" customClass="RoundButton" customModule="Converter" customModuleProvider="target">
                                                         <rect key="frame" x="86" y="0.0" width="40" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

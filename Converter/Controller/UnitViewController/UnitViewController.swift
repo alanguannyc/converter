@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 
+
+
 class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 
@@ -34,14 +36,16 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var unitModel = UnitModel()
     
-   
+    let realm = try! Realm()
     
     @IBOutlet weak var itemTableView: UITableView!
     
     
    
     override func viewWillAppear(_ animated: Bool) {
+        unitItems = selectedCategory?.items.filter("picked == true").sorted(byKeyPath: "name", ascending: true)
 
+        itemTableView.reloadData()
 //        DispatchQueue.main.async {
 //            self.itemTableView.reloadData()
 //        }
@@ -66,7 +70,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         set {}
     }
     func loadItems() {
-        unitItems = selectedCategory?.items.sorted(byKeyPath: "name", ascending: true)
+        unitItems = selectedCategory?.items.filter("picked == true")
 //        itemTableView.reloadData()
     }
     // Auto Update the size of the UITableView 
@@ -102,12 +106,34 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view.
         
         
+        // Create a basevalue for converting and formatter
         
+        let formatter = MeasurementFormatter()
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .spellOut
+        formatter.numberFormatter = numberFormatter
+        
+        formatter.numberFormatter.numberStyle = .none
+        formatter.unitOptions = .providedUnit
+        formatter.unitStyle = .medium
+        formatter.locale = Locale(identifier: "en-US")
+        
+        
+        do {
+            try realm.write {
+            unitItems.swapAt(2, 1)
+        }
+            
+        }catch {
+            
+        }
         
         // Auto Update the size of the UITableView
         itemTableView.reloadData()
         itemTableView.layoutIfNeeded()
     }
+    
+    var basevalue = Measurement(value: 0.0, unit: UnitLength.meters)
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.layoutIfNeeded()
@@ -155,7 +181,17 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddMoreItem" {
+            let destinationVC = segue.destination as! UINavigationController
+            let targetController = destinationVC.topViewController as! AddMoreUnitTableViewController
+
+            targetController.categoryName = selectedCategory
+        }
+    }
+
+    @IBAction func AddMoreUnit(_ sender: UIButton) {
+        performSegue(withIdentifier: "AddMoreItem", sender: Any?.self)
+    }
     
-
-
 }

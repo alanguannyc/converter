@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A3E9FF1B652D091994B025B2 /* Pods_Converter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 162804021EDEF6A476FDF05C /* Pods_Converter.framework */; };
 		E72BAEC02183B3B900291B66 /* LengthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEBF2183B3B900291B66 /* LengthModel.swift */; };
+		E72BAEC22188E54300291B66 /* AddMoreUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */; };
+		E72BAEC42188F58C00291B66 /* AddMoreUnitSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */; };
 		E748A0572170EE5D00792BAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0562170EE5D00792BAA /* AppDelegate.swift */; };
 		E748A0592170EE5D00792BAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0582170EE5D00792BAA /* ViewController.swift */; };
 		E748A05C2170EE5D00792BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E748A05A2170EE5D00792BAA /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 		162804021EDEF6A476FDF05C /* Pods_Converter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Converter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F008E1D2FDA3E062762C179 /* Pods-Converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Converter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Converter/Pods-Converter.debug.xcconfig"; sourceTree = "<group>"; };
 		E72BAEBF2183B3B900291B66 /* LengthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthModel.swift; sourceTree = "<group>"; };
+		E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoreUnitTableViewController.swift; sourceTree = "<group>"; };
+		E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoreUnitSearch.swift; sourceTree = "<group>"; };
 		E748A0532170EE5D00792BAA /* Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Converter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E748A0562170EE5D00792BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E748A0582170EE5D00792BAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E72BAEC52188F59000291B66 /* AddMoreUnitController */ = {
+			isa = PBXGroup;
+			children = (
+				E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */,
+				E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */,
+			);
+			path = AddMoreUnitController;
+			sourceTree = "<group>";
+		};
 		E748A04A2170EE5D00792BAA = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +148,7 @@
 				E7C3861E217671720043BC78 /* DismissAnimator.swift */,
 				E7C3861A217653080043BC78 /* UIColor.swift */,
 				E748A0582170EE5D00792BAA /* ViewController.swift */,
+				E72BAEC52188F59000291B66 /* AddMoreUnitController */,
 				E792EC1C2177BDCB00A4CFE2 /* UnitViewController */,
 			);
 			path = Controller;
@@ -326,6 +340,7 @@
 				E792EC28217A452A00A4CFE2 /* StackViewToggle.swift in Sources */,
 				E792EC1E2179169A00A4CFE2 /* UnitTableViewCell.swift in Sources */,
 				E792EC152177B1E600A4CFE2 /* UnitViewControllerData.swift in Sources */,
+				E72BAEC22188E54300291B66 /* AddMoreUnitTableViewController.swift in Sources */,
 				E7C3861D217662560043BC78 /* ScaleSegue.swift in Sources */,
 				E792EC2E217E37E700A4CFE2 /* CategoryModel.swift in Sources */,
 				E748A0592170EE5D00792BAA /* ViewController.swift in Sources */,
@@ -336,6 +351,7 @@
 				E792EC2A217E21ED00A4CFE2 /* UnitCategory.swift in Sources */,
 				E748A07A21751E1500792BAA /* CardView.swift in Sources */,
 				E792EC192177B51D00A4CFE2 /* UnitModel.swift in Sources */,
+				E72BAEC42188F58C00291B66 /* AddMoreUnitSearch.swift in Sources */,
 				E748A0572170EE5D00792BAA /* AppDelegate.swift in Sources */,
 				E7C3861F217671720043BC78 /* DismissAnimator.swift in Sources */,
 				E792EC2C217E231D00A4CFE2 /* UnitItem.swift in Sources */,
