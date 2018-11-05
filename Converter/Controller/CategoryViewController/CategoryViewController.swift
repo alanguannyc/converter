@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class CategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     
     var categories : Results<UnitCategory>?
@@ -132,7 +132,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
 
-extension ViewController: UIViewControllerTransitioningDelegate {
+extension CategoryViewController: UIViewControllerTransitioningDelegate {
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return DismissAnimator()
     }

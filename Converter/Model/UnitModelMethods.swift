@@ -7,6 +7,7 @@
 
 import UIKit
 import MobileCoreServices
+import RealmSwift
 
 extension UnitModel {
     /**
@@ -21,10 +22,11 @@ extension UnitModel {
      A helper function that serves as an interface to the data mode, called
      by the `tableView(_:itemsForBeginning:at:)` method.
      */
-    func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
-        let placeName = placeNames[indexPath.row]
+    func dragItems(for indexPath: IndexPath, for item: Results<UnitItem>) -> [UIDragItem] {
+//        let placeName = placeNames[indexPath.row]
+        let itemName = item[indexPath.row].name
         
-        let data = placeName.data(using: .utf8)
+        let data = itemName.data(using: .utf8)
         let itemProvider = NSItemProvider()
         
         itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in

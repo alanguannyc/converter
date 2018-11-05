@@ -7,5 +7,6 @@ target 'Converter' do
 
   # Pods for Converter
 pod 'RealmSwift'
+pod 'SwipeCellKit'
 
 end

@@ -11,8 +11,9 @@
 		E72BAEC02183B3B900291B66 /* LengthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEBF2183B3B900291B66 /* LengthModel.swift */; };
 		E72BAEC22188E54300291B66 /* AddMoreUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */; };
 		E72BAEC42188F58C00291B66 /* AddMoreUnitSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */; };
+		E72BAECB2190BCFA00291B66 /* UnitViewControllerSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAECA2190BCFA00291B66 /* UnitViewControllerSwipe.swift */; };
 		E748A0572170EE5D00792BAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0562170EE5D00792BAA /* AppDelegate.swift */; };
-		E748A0592170EE5D00792BAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0582170EE5D00792BAA /* ViewController.swift */; };
+		E748A0592170EE5D00792BAA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0582170EE5D00792BAA /* CategoryViewController.swift */; };
 		E748A05C2170EE5D00792BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E748A05A2170EE5D00792BAA /* Main.storyboard */; };
 		E748A0612170EE5E00792BAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E748A05F2170EE5E00792BAA /* LaunchScreen.storyboard */; };
 		E748A0722171296B00792BAA /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0702171296B00792BAA /* TableViewCell.swift */; };
@@ -43,9 +44,10 @@
 		E72BAEBF2183B3B900291B66 /* LengthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthModel.swift; sourceTree = "<group>"; };
 		E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoreUnitTableViewController.swift; sourceTree = "<group>"; };
 		E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoreUnitSearch.swift; sourceTree = "<group>"; };
+		E72BAECA2190BCFA00291B66 /* UnitViewControllerSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitViewControllerSwipe.swift; sourceTree = "<group>"; };
 		E748A0532170EE5D00792BAA /* Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Converter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E748A0562170EE5D00792BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E748A0582170EE5D00792BAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E748A0582170EE5D00792BAA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		E748A05B2170EE5D00792BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E748A0602170EE5E00792BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E748A0622170EE5E00792BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 			path = AddMoreUnitController;
 			sourceTree = "<group>";
 		};
+		E72BAEC92190BB1D00291B66 /* CategoryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E748A0582170EE5D00792BAA /* CategoryViewController.swift */,
+			);
+			path = CategoryViewController;
+			sourceTree = "<group>";
+		};
 		E748A04A2170EE5D00792BAA = {
 			isa = PBXGroup;
 			children = (
@@ -147,7 +157,7 @@
 				E7C3861C217662560043BC78 /* ScaleSegue.swift */,
 				E7C3861E217671720043BC78 /* DismissAnimator.swift */,
 				E7C3861A217653080043BC78 /* UIColor.swift */,
-				E748A0582170EE5D00792BAA /* ViewController.swift */,
+				E72BAEC92190BB1D00291B66 /* CategoryViewController */,
 				E72BAEC52188F59000291B66 /* AddMoreUnitController */,
 				E792EC1C2177BDCB00A4CFE2 /* UnitViewController */,
 			);
@@ -190,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				E748A07B217535DD00792BAA /* UnitViewController.swift */,
+				E72BAECA2190BCFA00291B66 /* UnitViewControllerSwipe.swift */,
 				E792EC142177B1E600A4CFE2 /* UnitViewControllerData.swift */,
 				E792EC162177B47900A4CFE2 /* UnitViewControllerDragDrop.swift */,
 				E792EC27217A452A00A4CFE2 /* StackViewToggle.swift */,
@@ -298,11 +309,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Converter/Pods-Converter-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -343,8 +356,9 @@
 				E72BAEC22188E54300291B66 /* AddMoreUnitTableViewController.swift in Sources */,
 				E7C3861D217662560043BC78 /* ScaleSegue.swift in Sources */,
 				E792EC2E217E37E700A4CFE2 /* CategoryModel.swift in Sources */,
-				E748A0592170EE5D00792BAA /* ViewController.swift in Sources */,
+				E748A0592170EE5D00792BAA /* CategoryViewController.swift in Sources */,
 				E748A07C217535DD00792BAA /* UnitViewController.swift in Sources */,
+				E72BAECB2190BCFA00291B66 /* UnitViewControllerSwipe.swift in Sources */,
 				E792EC1B2177B61400A4CFE2 /* UnitModelMethods.swift in Sources */,
 				E72BAEC02183B3B900291B66 /* LengthModel.swift in Sources */,
 				E792EC172177B47900A4CFE2 /* UnitViewControllerDragDrop.swift in Sources */,

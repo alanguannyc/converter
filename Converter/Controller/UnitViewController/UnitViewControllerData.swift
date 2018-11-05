@@ -8,9 +8,12 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 // Logic that connects `TableViewController`'s data model with its user interface.
 extension UnitViewController : typerProtocol{
+    
+    
     func numberButtonTapped(newBaseValue: Measurement<UnitLength>) {
         basevalue = newBaseValue
         itemTableView.reloadData()
@@ -37,6 +40,7 @@ extension UnitViewController : typerProtocol{
         cell.UnitLabel.text = unitItems?[indexPath.row].name
 //        cell.UnitLabel.text = unitModel.placeNames[indexPath.row]
 //        cell.UnitCalculatorView.isHidden = selectedIndex == indexPath.row ? false : true
+        cell.delegate = self
         cell.typerDelegate = self
         if (selectedIndex == indexPath.row) {
             cell.UnitCalculatorView.isHidden = false

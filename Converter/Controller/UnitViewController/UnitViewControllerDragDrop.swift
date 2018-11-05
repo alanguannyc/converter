@@ -12,7 +12,7 @@ import UIKit
 extension UnitViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        return unitModel.dragItems(for: indexPath)
+        return unitModel.dragItems(for: indexPath, for: unitItems!)
     }
     
     

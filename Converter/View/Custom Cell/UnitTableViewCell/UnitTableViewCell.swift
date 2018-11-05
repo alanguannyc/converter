@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 protocol typerProtocol {
     func numberButtonTapped(newBaseValue:  Measurement<UnitLength>)
 }
 
-class UnitTableViewCell: UITableViewCell {
+class UnitTableViewCell: SwipeTableViewCell {
     
 
     @IBOutlet weak var UnitCalculatorView: UIView!

@@ -8,10 +8,11 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 
 
-class UnitViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
 
     @IBOutlet weak var bottomHeight: NSLayoutConstraint!
@@ -29,6 +30,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     {
         didSet{
             loadItems()
+            
         }
     }
     var unitItems : Results<UnitItem>?
@@ -43,13 +45,13 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     
    
     override func viewWillAppear(_ animated: Bool) {
-        unitItems = selectedCategory?.items.filter("picked == true").sorted(byKeyPath: "name", ascending: true)
-
+        unitItems = selectedCategory?.items.filter("picked == true")
         itemTableView.reloadData()
+        
 //        DispatchQueue.main.async {
 //            self.itemTableView.reloadData()
 //        }
-//        unitItems = selectedCategory?.items.sorted(byKeyPath: "name", ascending: true)
+
         
         
         titleLabel.text = titleName
@@ -71,7 +73,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     func loadItems() {
         unitItems = selectedCategory?.items.filter("picked == true")
-//        itemTableView.reloadData()
+
     }
     // Auto Update the size of the UITableView 
     override func viewWillLayoutSubviews() {
@@ -84,6 +86,8 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.updateViewConstraints()
         
     }
+    
+    
     
     override func viewDidLoad() {
        
@@ -119,14 +123,7 @@ class UnitViewController: UIViewController, UITableViewDelegate, UITableViewData
         formatter.locale = Locale(identifier: "en-US")
         
         
-        do {
-            try realm.write {
-            unitItems.swapAt(2, 1)
-        }
-            
-        }catch {
-            
-        }
+
         
         // Auto Update the size of the UITableView
         itemTableView.reloadData()
