@@ -13,7 +13,13 @@ protocol typerProtocol {
     func numberButtonTapped(newBaseValue:  Measurement<UnitLength>)
 }
 
-class UnitTableViewCell: SwipeTableViewCell {
+class UnitTableViewCell: SwipeTableViewCell, unitProtocol {
+    var currentUnitType : Dimension?
+    
+    func newUnitType(unitType: Dimension) {
+        currentUnitType = unitType
+    }
+    
     
 
     @IBOutlet weak var UnitCalculatorView: UIView!
@@ -36,7 +42,7 @@ class UnitTableViewCell: SwipeTableViewCell {
         } else {
             NumberLabel.text = NumberLabel.text! + sender.currentTitle!
         }
-        
+       
         var initalValue = Length(rawValue: UnitLabel.text!)
         typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
 //        NumberLabel.text = String(initalValue!.convertedValue(basevalue: typerLengthBaseValue))

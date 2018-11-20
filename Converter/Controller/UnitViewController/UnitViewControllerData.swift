@@ -29,8 +29,18 @@ extension UnitViewController : typerProtocol{
   
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return unitItems?.count ?? 1
-//        return unitModel.placeNames.count
+        return (requests?.count)!
+//        return (selectedCategory?.items.filter("picked == true").count)!
+
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            
+            selectedCategory?.items.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
      
     
@@ -47,17 +57,42 @@ extension UnitViewController : typerProtocol{
         } else {
             cell.UnitCalculatorView.isHidden = true
         }
-//        print(basevalue.value)
-        let initalValue = Length(rawValue: cell.UnitLabel.text!)
-//        basevalue = (initalValue?.changeBaseValue(value: Double(cell.NumberLabel.text!)!))!
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
-        if formatter.string(for: initalValue!.convertedValue(basevalue: basevalue)) == "0" {
-            cell.NumberLabel.text = "0.0"
-        } else {
-            cell.NumberLabel.text = formatter.string(for: initalValue!.convertedValue(basevalue: basevalue))
+        
+        let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+        
+        switch initalValue {
+        
+        case .unitLength(let value, let baseValue ):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        case .unitArea(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        case .unitVolume(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
         }
+//        basevalue = (initalValue?.changeBaseValue(value: Double(cell.NumberLabel.text!)!))!
+        
+//        func changeCellLabel(val : Any) {
+//            if formatter.string(for: initalValue.convertedValue(basevalue: val)) == "0" {
+//                cell.NumberLabel.text = "0.0"
+//            } else {
+//                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+//            }
+//        }
         
 
         //change highlight background color of cells

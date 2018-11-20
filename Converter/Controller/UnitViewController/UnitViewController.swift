@@ -10,10 +10,12 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-
+protocol unitProtocol {
+    func newUnitType(unitType:  Dimension)
+}
 
 class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
-    
+    var unitDelegate : unitProtocol?
 
     @IBOutlet weak var bottomHeight: NSLayoutConstraint!
     
@@ -31,10 +33,16 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         didSet{
             loadItems()
             
+//            OperationQueue.main.addOperation { // this will not crash
+//                self.itemTableView.reloadData()
+//            }
+            
+            
         }
     }
     var unitItems : Results<UnitItem>?
     
+    var requests : Array<Any>?
     
     var unitModel = UnitModel()
     
@@ -71,8 +79,11 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         set {}
     }
+    
+    // MARK: - Load Item Method
     func loadItems() {
         unitItems = selectedCategory?.items.filter("picked == true")
+        
 
     }
     // Auto Update the size of the UITableView 
@@ -93,6 +104,7 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
        
         super.viewDidLoad()
         
+        requests = Array((selectedCategory?.items.filter("picked == true"))!)
         
         
         itemTableView.register(UINib(nibName: "UnitTableViewCell", bundle: nil), forCellReuseIdentifier: "UnitTableViewCell")

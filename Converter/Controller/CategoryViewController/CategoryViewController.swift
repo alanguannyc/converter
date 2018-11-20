@@ -19,7 +19,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        print("file location\(Realm.Configuration.defaultConfiguration.fileURL!)")
         if #available(iOS 9.0, *) {
             categoryTableView.cellLayoutMarginsFollowReadableWidth = true
         }
@@ -36,8 +36,6 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view, typically from a nib.
        
         self.transitioningDelegate = self
-        
-        
 
 
         loadCategory()
@@ -129,7 +127,6 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         
-        
     }
 
 extension CategoryViewController: UIViewControllerTransitioningDelegate {
@@ -137,3 +134,4 @@ extension CategoryViewController: UIViewControllerTransitioningDelegate {
         return DismissAnimator()
     }
 }
+

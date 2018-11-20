@@ -35,7 +35,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="0de-jQ-BbQ" kind="presentation" identifier="unitSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="tFI-XK-Qb5"/>
+                                            <segue destination="0de-jQ-BbQ" kind="presentation" identifier="unitSegue" customClass="ScaleSegue" customModule="Converter" customModuleProvider="target" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="tFI-XK-Qb5"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -292,7 +292,6 @@
         <!--Navigation Controller-->
         <scene sceneID="fX9-hP-ZQB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eNN-pG-MxI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lOp-7m-09d" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fk4-If-DQG">
@@ -304,6 +303,7 @@
                         <segue destination="ZdY-hq-Pqe" kind="relationship" relationship="rootViewController" id="ZWg-bf-Mxw"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eNN-pG-MxI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3214" y="-400"/>
         </scene>

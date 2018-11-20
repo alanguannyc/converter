@@ -158,8 +158,8 @@
 				E7C3861E217671720043BC78 /* DismissAnimator.swift */,
 				E7C3861A217653080043BC78 /* UIColor.swift */,
 				E72BAEC92190BB1D00291B66 /* CategoryViewController */,
-				E72BAEC52188F59000291B66 /* AddMoreUnitController */,
 				E792EC1C2177BDCB00A4CFE2 /* UnitViewController */,
+				E72BAEC52188F59000291B66 /* AddMoreUnitController */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
