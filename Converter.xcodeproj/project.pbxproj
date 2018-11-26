@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A3E9FF1B652D091994B025B2 /* Pods_Converter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 162804021EDEF6A476FDF05C /* Pods_Converter.framework */; };
+		C721814F21AA3F31009EC3A1 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = C721814E21AA3F31009EC3A1 /* Currency.swift */; };
 		E72BAEC02183B3B900291B66 /* LengthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEBF2183B3B900291B66 /* LengthModel.swift */; };
 		E72BAEC22188E54300291B66 /* AddMoreUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */; };
 		E72BAEC42188F58C00291B66 /* AddMoreUnitSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */; };
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		162804021EDEF6A476FDF05C /* Pods_Converter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Converter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F008E1D2FDA3E062762C179 /* Pods-Converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Converter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Converter/Pods-Converter.debug.xcconfig"; sourceTree = "<group>"; };
+		C721814D21A9CF86009EC3A1 /* currency.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = currency.playground; path = Model/currency.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C721814E21AA3F31009EC3A1 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		E72BAEBF2183B3B900291B66 /* LengthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthModel.swift; sourceTree = "<group>"; };
 		E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoreUnitTableViewController.swift; sourceTree = "<group>"; };
 		E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoreUnitSearch.swift; sourceTree = "<group>"; };
@@ -140,6 +143,7 @@
 		E748A0552170EE5D00792BAA /* Converter */ = {
 			isa = PBXGroup;
 			children = (
+				C721814D21A9CF86009EC3A1 /* currency.playground */,
 				E748A0562170EE5D00792BAA /* AppDelegate.swift */,
 				E748A07421712A2500792BAA /* View */,
 				E748A06F2170F65E00792BAA /* Model */,
@@ -169,6 +173,7 @@
 			children = (
 				E792EC182177B51D00A4CFE2 /* UnitModel.swift */,
 				E72BAEBF2183B3B900291B66 /* LengthModel.swift */,
+				C721814E21AA3F31009EC3A1 /* Currency.swift */,
 				E792EC2D217E37E700A4CFE2 /* CategoryModel.swift */,
 				E792EC29217E21ED00A4CFE2 /* UnitCategory.swift */,
 				E792EC2B217E231D00A4CFE2 /* UnitItem.swift */,
@@ -307,14 +312,18 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Converter/Pods-Converter-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +370,7 @@
 				E72BAECB2190BCFA00291B66 /* UnitViewControllerSwipe.swift in Sources */,
 				E792EC1B2177B61400A4CFE2 /* UnitModelMethods.swift in Sources */,
 				E72BAEC02183B3B900291B66 /* LengthModel.swift in Sources */,
+				C721814F21AA3F31009EC3A1 /* Currency.swift in Sources */,
 				E792EC172177B47900A4CFE2 /* UnitViewControllerDragDrop.swift in Sources */,
 				E792EC2A217E21ED00A4CFE2 /* UnitCategory.swift in Sources */,
 				E748A07A21751E1500792BAA /* CardView.swift in Sources */,

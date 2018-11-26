@@ -29,10 +29,7 @@ class ScaleSegue: UIStoryboardSegue {
         var cellCenterX = selectedCell.contentView.frame.origin.x + selectedCell.contentView.frame.width/2
         var cellCenterY = selectedCell.contentView.frame.origin.y + selectedCell.contentView.frame.height/2
         let width = selectedCell.contentView.frame.width
-        print("cell\(selectedIndexPath)")
-        print("cell\(selectedCell.center)")
-        print("cell\(selectedCell.cellLabel.text)")
-        print("cell center\(cellCenterX) and  \(cellCenterY)")
+        
         toViewController.view.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
         toViewController.view.center = selectedCell.center
         

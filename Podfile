@@ -8,5 +8,7 @@ target 'Converter' do
   # Pods for Converter
 pod 'RealmSwift'
 pod 'SwipeCellKit'
+pod 'Alamofire'
+pod 'SwiftyJSON'
 
 end

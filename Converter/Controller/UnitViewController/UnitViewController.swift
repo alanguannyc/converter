@@ -9,14 +9,22 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import SwiftyJSON
+import Alamofire
 
-protocol unitProtocol {
-    func newUnitType(unitType:  Dimension)
+
+
+protocol DataModelDelegate: class {
+    func receiveData(data: String)
 }
 
 class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
-    var unitDelegate : unitProtocol?
-
+    var currency = [[String : Double]]()
+    var dataToPass : String?
+    
+    var unitToMoniter : String?
+    var unitValueToMoniter : Double?
+    
     @IBOutlet weak var bottomHeight: NSLayoutConstraint!
     
     @IBOutlet weak var contentView: UIView!
@@ -40,11 +48,22 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
     }
+    
+    weak var dataDelegate: DataModelDelegate?
+    
+    func sendData() {
+        print("started sending")
+        
+        dataDelegate?.receiveData(data: dataToPass!)
+    }
+    
     var unitItems : Results<UnitItem>?
     
     var requests : Array<Any>?
     
     var unitModel = UnitModel()
+    
+    
     
     let realm = try! Realm()
     
@@ -60,7 +79,7 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //            self.itemTableView.reloadData()
 //        }
 
-        
+        dataToPass = selectedCategory?.name
         
         titleLabel.text = titleName
         contentView.backgroundColor = colorToPass
@@ -103,9 +122,29 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
        
         super.viewDidLoad()
-        
         requests = Array((selectedCategory?.items.filter("picked == true"))!)
-        
+        // Update Currency Array
+        var pairs : String = "USD"
+        for request in unitItems! {
+            pairs = pairs + "," + request.name
+        }
+        let baseParams: Parameters = [
+            "pairs": pairs,
+            "api_key" : Currency.API_KEY
+        ]
+
+        Alamofire.request(Currency.baseURL, method: .get, parameters: baseParams, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("JSON: \(json)")
+                let convertedValue = JSON(value)["value"].double
+          
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
         
         itemTableView.register(UINib(nibName: "UnitTableViewCell", bundle: nil), forCellReuseIdentifier: "UnitTableViewCell")
         itemTableView.separatorColor = UIColor.lightGray
@@ -134,7 +173,6 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         formatter.unitStyle = .medium
         formatter.locale = Locale(identifier: "en-US")
         
-        
 
         
         // Auto Update the size of the UITableView
@@ -142,7 +180,7 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         itemTableView.layoutIfNeeded()
     }
     
-    var basevalue = Measurement(value: 0.0, unit: UnitLength.meters)
+//    var basevalue = Measurement(value: 0.0, unit: UnitLength.meters)
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.layoutIfNeeded()

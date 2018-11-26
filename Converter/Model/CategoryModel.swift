@@ -90,6 +90,15 @@ struct CategoryModel {
                 ["name":"Ares","picked" : false],
                 ["name":"Hectares","picked" : false]
                 
+                ] as AnyObject],
+            
+            ["name":"Currency" as AnyObject, "items": [
+                ["name":"UAE Dirham","picked" : true],
+                ["name":"Albanian Lek","picked" : true],
+                ["name":"Algerian Dinar","picked" : true],
+                ["name":"Argentine Peso","picked" : true],
+          
+                
                 ] as AnyObject]
         
     ]

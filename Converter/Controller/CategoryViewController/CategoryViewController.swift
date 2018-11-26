@@ -9,8 +9,15 @@
 import UIKit
 import RealmSwift
 
+protocol categoryProtocol : class{
+//    func categorySelected(category : String)
+    func receiveData(data: String)
+}
+
 class CategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
+    weak var categoryDelegate : categoryProtocol?
+    var dataToPass : String?
     
     var categories : Results<UnitCategory>?
     let realm = try! Realm()
@@ -98,8 +105,11 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectedCellBackground : UIColor?
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("category from view controller", (categories?[indexPath.row].name)!)
         
-      
+        dataToPass = categories?[indexPath.row].name
+//        self.categoryDelegate?.categorySelected(category: (categories?[indexPath.row].name)!)
+      print("before sending", dataToPass!)
         self.performSegue(withIdentifier: "unitSegue", sender: Any?.self)
         
         categoryTableView.deselectRow(at: indexPath, animated: true)
@@ -126,7 +136,11 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         }
         
-        
+        func sendData() {
+            print("started sending", dataToPass!)
+            
+            categoryDelegate?.receiveData(data: dataToPass!)
+        }
     }
 
 extension CategoryViewController: UIViewControllerTransitioningDelegate {

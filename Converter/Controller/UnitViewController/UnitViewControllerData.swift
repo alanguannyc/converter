@@ -9,14 +9,74 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import SwiftyJSON
+import Alamofire
 
 // Logic that connects `TableViewController`'s data model with its user interface.
 extension UnitViewController : typerProtocol{
     
     
-    func numberButtonTapped(newBaseValue: Measurement<UnitLength>) {
-        basevalue = newBaseValue
+    // MARK: - Delegate Methods
+    func numberButtonTapped(unit: String, value: Double) {
+        self.unitToMoniter = unit
+        self.unitValueToMoniter = value
         itemTableView.reloadData()
+    }
+    
+    func updateUnitNumberLabel(unit : String, value : Double, cell : UnitTableViewCell) {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        
+        let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+        var newBase = CategoryMeasurement.createNewValue(category: (selectedCategory?.name)!, unit: unit, value: value)
+        switch newBase {
+        case .unitLength(let value, let baseValue):
+            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            switch cellUnit {
+                case .unitLength(let singleCellUnit, let value):
+                    if formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue)) == "0" {
+                        cell.NumberLabel.text = "0.0"
+                    } else {
+                        cell.NumberLabel.text = formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue))
+                }
+            case .unitArea(_, _):
+                break
+            case .unitVolume(_, _):
+                break
+            }
+            
+        case .unitArea(let value, let baseValue):
+            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            switch cellUnit {
+            case .unitArea(let singleCellUnit, let value):
+                if formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue)) == "0" {
+                    cell.NumberLabel.text = "0.0"
+                } else {
+                    cell.NumberLabel.text = formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue))
+                }
+            case .unitLength(_, _):
+                break
+            case .unitVolume(_, _):
+                break
+            }
+        case .unitVolume( _, let baseValue):
+            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            switch cellUnit {
+            case .unitVolume(let singleCellUnit, _):
+                if formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue)) == "0" {
+                    cell.NumberLabel.text = "0.0"
+                } else {
+                    cell.NumberLabel.text = formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue))
+                }
+            case .unitArea(_, _):
+                break
+            case .unitLength(_, _):
+                break
+            }
+        }
+        
+        
     }
     
     
@@ -42,7 +102,8 @@ extension UnitViewController : typerProtocol{
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-     
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = itemTableView.dequeueReusableCell(withIdentifier: "UnitTableViewCell") as! UnitTableViewCell
@@ -57,44 +118,31 @@ extension UnitViewController : typerProtocol{
         } else {
             cell.UnitCalculatorView.isHidden = true
         }
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
         
-        let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
-        
-        switch initalValue {
-        
-        case .unitLength(let value, let baseValue ):
-            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
-                cell.NumberLabel.text = "0.0"
-            } else {
-                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
-            }
-        case .unitArea(let value, let baseValue):
-            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
-                cell.NumberLabel.text = "0.0"
-            } else {
-                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
-            }
-        case .unitVolume(let value, let baseValue):
-            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
-                cell.NumberLabel.text = "0.0"
-            } else {
-                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
-            }
+        if (titleName == "Currency")  {
+//            updateCurrency(from: cell.UnitLabel.text!, to: Currency.baseUnit, quantity: 1, cell: cell)
+            
+
+      
+                
+            
+            
         }
+        
+        
+        else if unitToMoniter == nil {
+            let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            
+            changeCellLabel(cell: cell, initalValue: initalValue)
+        } 
+        
+        else if (unitValueToMoniter != nil) {
+            updateUnitNumberLabel(unit: cell.UnitLabel.text!, value: unitValueToMoniter ?? 0.0, cell: cell)
+        }
+        
+        cell.selectedCategory = selectedCategory?.name
 //        basevalue = (initalValue?.changeBaseValue(value: Double(cell.NumberLabel.text!)!))!
         
-//        func changeCellLabel(val : Any) {
-//            if formatter.string(for: initalValue.convertedValue(basevalue: val)) == "0" {
-//                cell.NumberLabel.text = "0.0"
-//            } else {
-//                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
-//            }
-//        }
-        
-
         //change highlight background color of cells
         let backgroundView = UIView()
         //        backgroundView.backgroundColor = cell.cellBackground.backgroundColor
@@ -106,6 +154,7 @@ extension UnitViewController : typerProtocol{
         
         
     }
+    
     
     
     
@@ -123,7 +172,8 @@ extension UnitViewController : typerProtocol{
             selectedIndex = indexPath.row
         }
         
-//        itemTableView.reloadData()
+        
+
 //                UIStackView.animateVisibilityOfViews([cell.UnitCalculatorView], hidden: !cell.UnitCalculatorView.isHidden)
         self.itemTableView.beginUpdates()
         itemTableView.reloadData()
@@ -131,6 +181,8 @@ extension UnitViewController : typerProtocol{
         self.itemTableView.endUpdates()
 
         self.itemTableView.deselectRow(at: indexPath, animated: false)
+        
+        
         
 
     }
@@ -152,4 +204,37 @@ extension UnitViewController : typerProtocol{
             print("Error changing the order \(error)")
         }
     }
+    
+    // MARK: - Update cell number by basevalue method
+    func changeCellLabel(cell : UnitTableViewCell, initalValue: CategoryMeasurement) {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        
+        switch initalValue {
+            
+        case .unitLength(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        case .unitArea(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        case .unitVolume(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        }
+    }
 }
+
+
+
+

@@ -7,27 +7,20 @@
 //
 
 import Foundation
+import SwiftyJSON
+import Alamofire
+
 //var basevalue = Measurement(value: 0.0, unit: UnitLength.meters)
 enum CategoryMeasurement {
+   
     case unitLength(Length, Measurement<UnitLength>)
     case unitArea(Area, Measurement<UnitArea>)
     case unitVolume(Volume, Measurement<UnitVolume>)
     
     
-    var baseValue : Any {
-        switch self {
-        case .unitLength:
-            return Measurement(value: 0.0, unit: UnitLength.meters)
-        case .unitArea:
-            return Measurement(value: 0.0, unit: UnitArea.squareMeters)
-        case .unitVolume:
-            return Measurement(value: 0.0, unit: UnitVolume.liters)
-            
-        }
-    }
-    
     static func initalValue(Type: String, unit : String) -> CategoryMeasurement {
         switch (Type) {
+            
             case "Length":
                 return CategoryMeasurement.unitLength(CategoryMeasurement.Length(rawValue: unit)!, Measurement(value: 0.0, unit: UnitLength.meters))
             case "Area":
@@ -36,6 +29,20 @@ enum CategoryMeasurement {
                 return CategoryMeasurement.unitVolume(CategoryMeasurement.Volume(rawValue: unit)!, Measurement(value: 0.0, unit: UnitVolume.liters))
         default:
             fatalError("No such category")
+        }
+    }
+    
+    static func createNewValue(category: String, unit: String, value : Double) -> CategoryMeasurement {
+        switch (category) {
+        case "Length":
+            return CategoryMeasurement.unitLength(CategoryMeasurement.Length(rawValue: unit)!, Measurement(value: value, unit: UnitLength.meters))
+        case "Area":
+            return CategoryMeasurement.unitArea(CategoryMeasurement.Area(rawValue: unit)!, Measurement(value: value, unit: UnitArea.squareMeters))
+        case "Volume":
+            return CategoryMeasurement.unitVolume(CategoryMeasurement.Volume(rawValue: unit)!, Measurement(value: value, unit: UnitVolume.liters))
+        default:
+            fatalError("No such category")
+        
         }
     }
     
@@ -477,3 +484,6 @@ func setBaseValue(value : Double, unit: UnitLength) -> Measurement<UnitLength> {
     return Measurement(value: value, unit: unit).converted(to: UnitLength.meters)
     
 }
+
+
+

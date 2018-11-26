@@ -10,17 +10,16 @@ import UIKit
 import SwipeCellKit
 
 protocol typerProtocol {
-    func numberButtonTapped(newBaseValue:  Measurement<UnitLength>)
+    func numberButtonTapped(unit: String, value: Double)
 }
 
-class UnitTableViewCell: SwipeTableViewCell, unitProtocol {
-    var currentUnitType : Dimension?
-    
-    func newUnitType(unitType: Dimension) {
-        currentUnitType = unitType
+class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate {
+    func receiveData(data: String) {
+        print("before pass:", data, selectedCategory)
+        selectedCategory = data
+        print("after pass:", data, selectedCategory)
     }
-    
-    
+
 
     @IBOutlet weak var UnitCalculatorView: UIView!
     @IBOutlet weak var backspaceButton: UIButton!
@@ -34,8 +33,43 @@ class UnitTableViewCell: SwipeTableViewCell, unitProtocol {
     var typerDelegate : typerProtocol?
     var typerLengthBaseValue = Measurement(value: 0.0, unit: UnitLength.meters)
     
-    @IBAction func numberButtoned(_ sender: UIButton) {
+    var selectedCategory : String?
+    
+    func categorySelected(category: String) {
+        print("category before is", category)
+        selectedCategory = category
+        print("category after is", selectedCategory)
+    }
+    
+    func changeCellLabel(cell : UnitTableViewCell, initalValue: CategoryMeasurement) {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
         
+        switch initalValue {
+            
+        case .unitLength(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        case .unitArea(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        case .unitVolume(let value, let baseValue):
+            if formatter.string(for: value.convertedValue(basevalue: baseValue)) == "0" {
+                cell.NumberLabel.text = "0.0"
+            } else {
+                cell.NumberLabel.text = formatter.string(for: value.convertedValue(basevalue: baseValue))
+            }
+        }
+    }
+    @IBAction func numberButtoned(_ sender: UIButton) {
+//        categoryViewController.sendData()
         if NumberLabel.text == String("0") || NumberLabel.text == String("0.0") {
             NumberLabel.text = sender.currentTitle!
 
@@ -43,20 +77,39 @@ class UnitTableViewCell: SwipeTableViewCell, unitProtocol {
             NumberLabel.text = NumberLabel.text! + sender.currentTitle!
         }
        
-        var initalValue = Length(rawValue: UnitLabel.text!)
-        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
-//        NumberLabel.text = String(initalValue!.convertedValue(basevalue: typerLengthBaseValue))
+//        var initalValue = Length(rawValue: UnitLabel.text!)
         
-        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
+        let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory ?? "Length", unit: UnitLabel.text!)
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+//        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
+        switch initalValue {
+            case .unitLength(let value, let baseValue):
+                var newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
+                typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: newBaseValue)
+            print(UnitLabel.text, newBaseValue)
+            case .unitArea(let value, let baseValue):
+                var newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
+               typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: newBaseValue)
+            print(UnitLabel.text, newBaseValue)
+            case .unitVolume(let value, let baseValue):
+                var newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
+                typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: newBaseValue)
+            print(UnitLabel.text, newBaseValue)
+        }
+        
+        
+        
     }
     
     @IBAction func operationButtoned(_ sender: UIButton) {
-        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
+//        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
     }
     @IBAction func clearButtoned(_ sender: UIButton) {
         NumberLabel.text = String(0.0)
         typerLengthBaseValue = Measurement(value: 0.0, unit: UnitLength.meters)
-        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
+//        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
 
     }
     @IBAction func dotButtoned(_ sender: UIButton) {
@@ -79,14 +132,21 @@ class UnitTableViewCell: SwipeTableViewCell, unitProtocol {
             NumberLabel.text = String(0.0)
         }
         
-        var initalValue = Length(rawValue: UnitLabel.text!)
-        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
-        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
+//        var initalValue = Length(rawValue: UnitLabel.text!)
+//        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
+//        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
     }
+    
+    var categoryViewController = UnitViewController()
     override func awakeFromNib() {
         super.awakeFromNib()
         
-       
+//        categoryViewController.dataDelegate = self
+        
+//        selectedCategory = dataModel.selectedCategory!.name
+
+
+        
         
         // Initialization code
         backspaceButton.setImage(UIImage(named: "backspace"), for:  .normal)
