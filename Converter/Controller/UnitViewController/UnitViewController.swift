@@ -63,7 +63,9 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var unitModel = UnitModel()
     
+    var multiplier : Double?
     
+    var euroCurrency : Double?
     
     let realm = try! Realm()
     
@@ -124,27 +126,38 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         requests = Array((selectedCategory?.items.filter("picked == true"))!)
         // Update Currency Array
-        var pairs : String = "USD"
+        var symbols : String = ""
         for request in unitItems! {
-            pairs = pairs + "," + request.name
+//            symbols += (Currency.CurrencyUnit(rawValue: request.name)?.currencyIdentifier)! + ","
         }
+        
         let baseParams: Parameters = [
-            "pairs": pairs,
-            "api_key" : Currency.API_KEY
+            "symbols" : symbols.dropLast(),
+//            "api_key" : Currency.API_KEY
         ]
-
-        Alamofire.request(Currency.baseURL, method: .get, parameters: baseParams, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                print("JSON: \(json)")
-                let convertedValue = JSON(value)["value"].double
-          
-                
-            case .failure(let error):
-                print(error)
+        if selectedCategory!.name == "Currency" {
+            Alamofire.request(Currency.baseURL, method: .get, parameters: baseParams, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
+                print("Request: \(response.request)")
+                switch response.result {
+                case .success(let value):
+                    
+                    let json = JSON(value)["rates"]
+                    for item in self.unitItems! {
+                        
+                        let newCurrency = [(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)! : json[(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)!].double]
+                        
+                        self.currency.append(newCurrency as! [String : Double])
+                    }
+                    
+                    print("JSON: \(json)")
+                    
+                    
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
+        
         
         itemTableView.register(UINib(nibName: "UnitTableViewCell", bundle: nil), forCellReuseIdentifier: "UnitTableViewCell")
         itemTableView.separatorColor = UIColor.lightGray

@@ -15,9 +15,8 @@ protocol typerProtocol {
 
 class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate {
     func receiveData(data: String) {
-        print("before pass:", data, selectedCategory)
         selectedCategory = data
-        print("after pass:", data, selectedCategory)
+    
     }
 
 
@@ -36,9 +35,9 @@ class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate
     var selectedCategory : String?
     
     func categorySelected(category: String) {
-        print("category before is", category)
+        
         selectedCategory = category
-        print("category after is", selectedCategory)
+        
     }
     
     func changeCellLabel(cell : UnitTableViewCell, initalValue: CategoryMeasurement) {
@@ -77,42 +76,64 @@ class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate
             NumberLabel.text = NumberLabel.text! + sender.currentTitle!
         }
        
-//        var initalValue = Length(rawValue: UnitLabel.text!)
-        
-        let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory ?? "Length", unit: UnitLabel.text!)
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-//        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
-        switch initalValue {
-            case .unitLength(let value, let baseValue):
-                var newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
+        if selectedCategory == "Currency" {
+            
+            typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
+            
+        } else {
+            let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory ?? "Length", unit: UnitLabel.text!)
+            let formatter = NumberFormatter()
+            formatter.minimumFractionDigits = 0
+            formatter.maximumFractionDigits = 2
+            //        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
+            switch initalValue {
+            case .unitLength(let value,  _):
+                let newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
                 typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: newBaseValue)
-            print(UnitLabel.text, newBaseValue)
-            case .unitArea(let value, let baseValue):
-                var newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
-               typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: newBaseValue)
-            print(UnitLabel.text, newBaseValue)
-            case .unitVolume(let value, let baseValue):
-                var newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
+                
+            case .unitArea(let value, _):
+                let newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
                 typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: newBaseValue)
-            print(UnitLabel.text, newBaseValue)
+                
+            case .unitVolume(let value,  _):
+                let newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
+                typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: newBaseValue)
+                
+            }
         }
+        
+        
         
         
         
     }
     
     @IBAction func operationButtoned(_ sender: UIButton) {
+        if selectedCategory == "Currency" {
+            
+            typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
+            
+        }
 //        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
     }
     @IBAction func clearButtoned(_ sender: UIButton) {
+        
         NumberLabel.text = String(0.0)
+        
+        if selectedCategory == "Currency" {
+            
+            typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
+            
+        }
+        
         typerLengthBaseValue = Measurement(value: 0.0, unit: UnitLength.meters)
+        
+        
 //        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
 
     }
     @IBAction func dotButtoned(_ sender: UIButton) {
+        
         if NumberLabel.text == String(0.0) {
             NumberLabel.text = "0."
         }
@@ -120,6 +141,12 @@ class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate
             if NumberLabel.text?.range(of: ".") == nil{
                 NumberLabel.text = NumberLabel.text! + "."
             }
+        }
+        
+        if selectedCategory == "Currency" {
+            
+            typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
+            
         }
     }
     
@@ -130,6 +157,12 @@ class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate
             NumberLabel.text = String(NumberLabel.text!.dropLast())
         } else {
             NumberLabel.text = String(0.0)
+        }
+        
+        if selectedCategory == "Currency" {
+            
+            typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
+            
         }
         
 //        var initalValue = Length(rawValue: UnitLabel.text!)

@@ -93,10 +93,10 @@ struct CategoryModel {
                 ] as AnyObject],
             
             ["name":"Currency" as AnyObject, "items": [
-                ["name":"UAE Dirham","picked" : true],
-                ["name":"Albanian Lek","picked" : true],
-                ["name":"Algerian Dinar","picked" : true],
-                ["name":"Argentine Peso","picked" : true],
+                ["name":"Yuan","picked" : true],
+                ["name":"Yen","picked" : true],
+                ["name":"US Dollar","picked" : true],
+                ["name":"Pound Sterling","picked" : false],
           
                 
                 ] as AnyObject]

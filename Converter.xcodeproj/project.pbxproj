@@ -42,7 +42,6 @@
 /* Begin PBXFileReference section */
 		162804021EDEF6A476FDF05C /* Pods_Converter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Converter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F008E1D2FDA3E062762C179 /* Pods-Converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Converter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Converter/Pods-Converter.debug.xcconfig"; sourceTree = "<group>"; };
-		C721814D21A9CF86009EC3A1 /* currency.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = currency.playground; path = Model/currency.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C721814E21AA3F31009EC3A1 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		E72BAEBF2183B3B900291B66 /* LengthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthModel.swift; sourceTree = "<group>"; };
 		E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoreUnitTableViewController.swift; sourceTree = "<group>"; };
@@ -143,12 +142,10 @@
 		E748A0552170EE5D00792BAA /* Converter */ = {
 			isa = PBXGroup;
 			children = (
-				C721814D21A9CF86009EC3A1 /* currency.playground */,
 				E748A0562170EE5D00792BAA /* AppDelegate.swift */,
 				E748A07421712A2500792BAA /* View */,
 				E748A06F2170F65E00792BAA /* Model */,
 				E748A06A2170F19E00792BAA /* Controller */,
-				E748A05F2170EE5E00792BAA /* LaunchScreen.storyboard */,
 				E748A0622170EE5E00792BAA /* Info.plist */,
 				E792EC23217936EB00A4CFE2 /* Assets.xcassets */,
 			);
@@ -186,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				E748A05A2170EE5D00792BAA /* Main.storyboard */,
+				E748A05F2170EE5E00792BAA /* LaunchScreen.storyboard */,
 				E748A07521712A3400792BAA /* Custom Cell */,
 			);
 			path = View;

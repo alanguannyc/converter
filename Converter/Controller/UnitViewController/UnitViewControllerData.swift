@@ -20,7 +20,46 @@ extension UnitViewController : typerProtocol{
     func numberButtonTapped(unit: String, value: Double) {
         self.unitToMoniter = unit
         self.unitValueToMoniter = value
+        var indexOfChangingUnit : Int?
+        var newItem : [String: Double]?
+        var baseValue = 1.0
+        
+        let symbol = Currency.CurrencyUnit.init(rawValue: unitToMoniter!)?.currencyIdentifier
+        
+        if (titleName == "Currency") {
+            for currencyItem in currency {
+                
+                indexOfChangingUnit = currency.firstIndex(where: {$0.contains(where: {($0.key == unit)})})
+                
+                newItem = updateExchangeRate(dict: currencyItem, unit: unit, value: unitValueToMoniter!)
+                
+                for value in currency[indexOfChangingUnit!].values {
+                    for val in (newItem?.values)! {
+                        multiplier = val / value
+                    }
+                }
+            }
+            print("the Index of item", indexOfChangingUnit)
+            print("the item", newItem)
+
+            
+        }
+        
+        
+        
         itemTableView.reloadData()
+    }
+    
+    func updateBasedOnBaseValue(dict:[String:Double],  multiplier : Double) -> [String:Double] {
+        let convertedValue = dict.map { (key, val) in  (key, val * multiplier ) }
+        return Dictionary(uniqueKeysWithValues: convertedValue)
+    }
+    
+    
+    func updateExchangeRate(dict:[String:Double], unit: String, value : Double) -> [String:Double]
+    {
+        let convertedValue = dict.map { (key, val) in key == unit ? (key, val) : (unit, value) }
+        return Dictionary(uniqueKeysWithValues: convertedValue)
     }
     
     func updateUnitNumberLabel(unit : String, value : Double, cell : UnitTableViewCell) {
@@ -89,7 +128,12 @@ extension UnitViewController : typerProtocol{
   
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (requests?.count)!
+        if (titleName == "Currency" ) {
+            return currency.count
+        } else {
+            return (requests?.count)!
+        }
+        
 //        return (selectedCategory?.items.filter("picked == true").count)!
 
     }
@@ -118,18 +162,29 @@ extension UnitViewController : typerProtocol{
         } else {
             cell.UnitCalculatorView.isHidden = true
         }
-        
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
         if (titleName == "Currency")  {
-//            updateCurrency(from: cell.UnitLabel.text!, to: Currency.baseUnit, quantity: 1, cell: cell)
-            
-
-      
+            if (multiplier == nil) {
+                for (item, _) in currency[indexPath.row] {
+                    cell.UnitLabel.text = item
+                    cell.NumberLabel.text = String(0.0)
+                }
+            }
+            else if (multiplier != nil) {
+                for (item, value) in currency[indexPath.row] {
+                    cell.UnitLabel.text = item
+                    cell.NumberLabel.text = formatter.string(for: value * multiplier!)
+                } } else {
+                for (item, value) in currency[indexPath.row] {
+                    cell.UnitLabel.text = item
+                    cell.NumberLabel.text = String(value)
+                        }
                 
-            
-            
         }
         
-        
+        }
         else if unitToMoniter == nil {
             let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
             
