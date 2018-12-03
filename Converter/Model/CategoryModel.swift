@@ -93,6 +93,7 @@ struct CategoryModel {
                 ] as AnyObject],
             
             ["name":"Currency" as AnyObject, "items": [
+                ["name":"Euro","picked" : true],
                 ["name":"Yuan","picked" : true],
                 ["name":"Yen","picked" : true],
                 ["name":"US Dollar","picked" : true],

@@ -18,29 +18,35 @@ extension UnitViewController : typerProtocol{
     
     // MARK: - Delegate Methods
     func numberButtonTapped(unit: String, value: Double) {
+        print("when number buttoned Currency list has", value)
         self.unitToMoniter = unit
         self.unitValueToMoniter = value
         var indexOfChangingUnit : Int?
         var newItem : [String: Double]?
-        var baseValue = 1.0
+
         
-        let symbol = Currency.CurrencyUnit.init(rawValue: unitToMoniter!)?.currencyIdentifier
         
         if (titleName == "Currency") {
             for currencyItem in currency {
                 
                 indexOfChangingUnit = currency.firstIndex(where: {$0.contains(where: {($0.key == unit)})})
                 
-                newItem = updateExchangeRate(dict: currencyItem, unit: unit, value: unitValueToMoniter!)
+                newItem = updateExchangeRate(dict: currencyItem, unit: unit, value: value)
+                print("the new item", newItem)
                 
-                for value in currency[indexOfChangingUnit!].values {
-                    for val in (newItem?.values)! {
-                        multiplier = val / value
-                    }
-                }
+                multiplier = value / currency[indexOfChangingUnit!][unit]!
+//                for (key,val )in currency[indexOfChangingUnit!] {
+//                    if key == unit {
+//                        multiplier = value / val
+//                    }
+//                }
             }
+//            if let newItemValue = newItem {
+//                currency[indexOfChangingUnit!] = newItemValue
+//            }
+//            
             print("the Index of item", indexOfChangingUnit)
-            print("the item", newItem)
+            print("the item", newItem, multiplier)
 
             
         }
@@ -150,6 +156,7 @@ extension UnitViewController : typerProtocol{
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("When tableview data reloaded, Currency list has", currency)
         let cell = itemTableView.dequeueReusableCell(withIdentifier: "UnitTableViewCell") as! UnitTableViewCell
         cell.backgroundColor = UIColor.clear
         cell.UnitLabel.text = unitItems?[indexPath.row].name

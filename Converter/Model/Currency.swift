@@ -54,6 +54,7 @@ struct Currency {
         case SGD = "Singapore Dollar"
         case CHF = "Swiss Franc"
         case INR = "Indian Rupee"
+        case EUR = "EURO"
        
         
         var currencyIdentifier: String {
@@ -90,6 +91,7 @@ struct Currency {
             case .SGD: return "SGD"
             case .CHF: return "CHF"
             case .INR: return "INR"
+            case .EUR: return "EUR"
             }
         }
     }

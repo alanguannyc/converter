@@ -131,22 +131,28 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //            symbols += (Currency.CurrencyUnit(rawValue: request.name)?.currencyIdentifier)! + ","
         }
         
-        let baseParams: Parameters = [
-            "symbols" : symbols.dropLast(),
-//            "api_key" : Currency.API_KEY
-        ]
+//        let baseParams: Parameters = [
+//            "symbols" : symbols.dropLast(),
+////            "api_key" : Currency.API_KEY
+//        ]
         if selectedCategory!.name == "Currency" {
-            Alamofire.request(Currency.baseURL, method: .get, parameters: baseParams, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
+            Alamofire.request(Currency.baseURL, method: .get, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
                 print("Request: \(response.request)")
                 switch response.result {
                 case .success(let value):
                     
                     let json = JSON(value)["rates"]
                     for item in self.unitItems! {
-                        
+                        if (item.name == "Euro" ){
+                            let newCurrency = ["EUR" : 1.0]
+                            self.currency.append(newCurrency as! [String : Double])
+                        } else {
+                            
                         let newCurrency = [(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)! : json[(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)!].double]
+                            self.currency.append(newCurrency as! [String : Double])
+                        }
                         
-                        self.currency.append(newCurrency as! [String : Double])
+                        
                     }
                     
                     print("JSON: \(json)")
