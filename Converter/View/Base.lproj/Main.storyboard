@@ -22,9 +22,8 @@
                                 <rect key="frame" x="0.0" y="116" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" layoutMarginsFollowReadableWidth="YES" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9iY-B2-6LI">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9iY-B2-6LI">
                                 <rect key="frame" x="0.0" y="180" width="375" height="487"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryViewCell" rowHeight="120" id="keP-tc-CVw">
@@ -43,23 +42,40 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="9iY-B2-6LI" firstAttribute="top" secondItem="0BR-PZ-UPG" secondAttribute="bottom" constant="8" id="3TM-eD-0G1"/>
                             <constraint firstItem="0BR-PZ-UPG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="J1z-W0-uJM"/>
+                            <constraint firstItem="9iY-B2-6LI" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="bR7-yg-pEg"/>
+                            <constraint firstItem="9iY-B2-6LI" firstAttribute="leading" secondItem="0BR-PZ-UPG" secondAttribute="leading" id="dLg-8p-CJj"/>
+                            <constraint firstItem="9iY-B2-6LI" firstAttribute="trailing" secondItem="0BR-PZ-UPG" secondAttribute="trailing" id="lqt-Bm-NrH"/>
                             <constraint firstItem="0BR-PZ-UPG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="pON-Tj-Xb0"/>
                             <constraint firstItem="0BR-PZ-UPG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="qK8-aM-ev6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="nMk-ni-4Yu" appends="YES" id="IJz-MQ-SiP"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Conversions" id="Qmy-fb-om1">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0q3-Sw-CeR">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="TNT-Sr-bzm" kind="show" id="WLh-SB-PJm"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="CategorySearchBar" destination="0BR-PZ-UPG" id="anA-ej-37a"/>
                         <outlet property="categoryTableView" destination="9iY-B2-6LI" id="Mlp-0V-Sbs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="nMk-ni-4Yu">
+                    <connections>
+                        <action selector="tapToDismissSearch:" destination="BYZ-38-t0r" id="zlw-Eq-iwI"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1434" y="-573"/>
         </scene>
@@ -101,7 +117,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="AddMoreUnit:" destination="0de-jQ-BbQ" eventType="touchUpInside" id="Cux-4j-XEV"/>
-                                                    <segue destination="lOp-7m-09d" kind="show" identifier="AddMoreItem" id="rYl-r8-rFe"/>
+                                                    <segue destination="lOp-7m-09d" kind="presentation" identifier="AddMoreItem" id="rYl-r8-rFe"/>
                                                 </connections>
                                             </button>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3fg-g0-lbS">
@@ -194,80 +210,6 @@
             </objects>
             <point key="canvasLocation" x="2327.1999999999998" y="-574.81259370314842"/>
         </scene>
-        <!--Category-->
-        <scene sceneID="lfU-ER-MM8">
-            <objects>
-                <tableViewController id="ZdY-hq-Pqe" customClass="AddMoreUnitTableViewController" customModule="Converter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XaE-aG-4xC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <gestureRecognizers/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="Lze-zc-TDP">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <gestureRecognizers/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="ZdY-hq-Pqe" id="iYr-bP-xgv"/>
-                                <outletCollection property="gestureRecognizers" destination="zqN-mG-WVA" appends="YES" id="teg-cx-HD7"/>
-                            </connections>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="h4w-h7-g8b" style="IBUITableViewCellStyleDefault" id="9Ea-Wv-ZsR">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Ea-Wv-ZsR" id="kgF-6I-oH7">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h4w-h7-g8b">
-                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ZdY-hq-Pqe" id="jAH-lv-75G"/>
-                            <outlet property="delegate" destination="ZdY-hq-Pqe" id="a6g-GU-mm8"/>
-                            <outletCollection property="gestureRecognizers" destination="zqN-mG-WVA" appends="YES" id="bzE-3g-xJG"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Category" id="Zwg-nQ-Fd5">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="kjw-Ce-qje">
-                            <connections>
-                                <action selector="cancelButtoned:" destination="ZdY-hq-Pqe" id="c7o-g2-IAl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="AddMoreSearchBar" destination="Lze-zc-TDP" id="WjB-x2-Zgo"/>
-                        <outlet property="AddMoreUnitTableView" destination="XaE-aG-4xC" id="vGw-gy-DKL"/>
-                        <outlet property="searchDisplayController" destination="eqV-S8-qGk" id="Cbb-pJ-L8A"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d68-3c-hcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer cancelsTouchesInView="NO" id="zqN-mG-WVA">
-                    <connections>
-                        <action selector="tapToDismissFirstResponder:" destination="ZdY-hq-Pqe" id="3jp-s9-5Vh"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <searchDisplayController id="eqV-S8-qGk">
-                    <connections>
-                        <outlet property="delegate" destination="ZdY-hq-Pqe" id="nad-mv-fWk"/>
-                        <outlet property="searchContentsController" destination="ZdY-hq-Pqe" id="pxx-Vh-u2P"/>
-                        <outlet property="searchResultsDataSource" destination="ZdY-hq-Pqe" id="I6X-Hf-vnq"/>
-                        <outlet property="searchResultsDelegate" destination="ZdY-hq-Pqe" id="xuj-9S-qIv"/>
-                    </connections>
-                </searchDisplayController>
-            </objects>
-            <point key="canvasLocation" x="4072.8000000000002" y="-399.85007496251876"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="L08-BC-hGq">
             <objects>
@@ -289,6 +231,14 @@
             </objects>
             <point key="canvasLocation" x="501" y="-572"/>
         </scene>
+        <!--AddMoreCategory-->
+        <scene sceneID="8yh-59-F7W">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AddMoreCategory" id="TNT-Sr-bzm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bnu-QM-6aR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1433" y="-53"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="fX9-hP-ZQB">
             <objects>
@@ -300,12 +250,22 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ZdY-hq-Pqe" kind="relationship" relationship="rootViewController" id="ZWg-bf-Mxw"/>
+                        <segue destination="FkW-aX-j12" kind="relationship" relationship="rootViewController" id="ZWg-bf-Mxw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNN-pG-MxI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3214" y="-400"/>
+        </scene>
+        <!--AddMoreUnit-->
+        <scene sceneID="6LJ-E8-Yqn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AddMoreUnit" id="FkW-aX-j12" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="sf7-tB-Vrz"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZpR-jh-aCi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4094" y="-401"/>
         </scene>
     </scenes>
 </document>

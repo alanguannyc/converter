@@ -13,11 +13,7 @@ protocol typerProtocol {
     func numberButtonTapped(unit: String, value: Double)
 }
 
-class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate {
-    func receiveData(data: String) {
-        selectedCategory = data
-    
-    }
+class UnitTableViewCell: SwipeTableViewCell {
 
 
     @IBOutlet weak var UnitCalculatorView: UIView!
@@ -28,7 +24,7 @@ class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate
     @IBOutlet weak var UnitLabel: UILabel!
     
     @IBOutlet weak var NumberLabel: UILabel!
-    
+    var startTyping : Bool = true
     var typerDelegate : typerProtocol?
     var typerLengthBaseValue = Measurement(value: 0.0, unit: UnitLength.meters)
     
@@ -68,24 +64,33 @@ class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate
         }
     }
     @IBAction func numberButtoned(_ sender: UIButton) {
-//        categoryViewController.sendData()
-        if NumberLabel.text == String("0") || NumberLabel.text == String("0.0") {
+        
+        if startTyping == true {
             NumberLabel.text = sender.currentTitle!
-
+            startTyping = false
         } else {
             NumberLabel.text = NumberLabel.text! + sender.currentTitle!
         }
+
+//        if NumberLabel.text == String("0") || NumberLabel.text == String("0.0") {
+//            NumberLabel.text = sender.currentTitle!
+//
+//        } else {
+//            NumberLabel.text = NumberLabel.text! + sender.currentTitle!
+//            
+//            print(NumberLabel.text!, sender.currentTitle!)
+//        }
        
         if selectedCategory == "Currency" {
             
             typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
             
         } else {
-            let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory ?? "Length", unit: UnitLabel.text!)
+            let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory ?? "Length", unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
             let formatter = NumberFormatter()
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
-            //        typerLengthBaseValue = (initalValue?.changeBaseValue(value: Double(NumberLabel.text!)!))!
+            
             switch initalValue {
             case .unitLength(let value,  _):
                 let newBaseValue = value.changeBaseValue(value: Double(NumberLabel.text!)!).value
@@ -114,7 +119,7 @@ class UnitTableViewCell: SwipeTableViewCell, categoryProtocol, DataModelDelegate
             typerDelegate?.numberButtonTapped(unit: UnitLabel.text!, value: Double(NumberLabel.text!)!)
             
         }
-//        typerDelegate?.numberButtonTapped(newBaseValue: typerLengthBaseValue)
+
     }
     @IBAction func clearButtoned(_ sender: UIButton) {
         

@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
-import Alamofire
 
 
 struct Currency {
@@ -54,7 +52,7 @@ struct Currency {
         case SGD = "Singapore Dollar"
         case CHF = "Swiss Franc"
         case INR = "Indian Rupee"
-        case EUR = "EURO"
+        case EUR = "Euro"
        
         
         var currencyIdentifier: String {
@@ -96,29 +94,6 @@ struct Currency {
         }
     }
     
-}
-
-// MARK: - Set base value
-func updateCurrency(URL: String = Currency.baseURL, from: String, to: String, quantity: Double, cell : UnitTableViewCell) {
-    
-    let baseParams: Parameters = [
-        "from": from,
-        "to" : to,
-        "quantity" : quantity,
-        "api_key" : Currency.API_KEY
-    ]
-    
-    
-    Alamofire.request(URL, method: .get, parameters: baseParams, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
-        switch response.result {
-        case .success(let value):
-            let convertedValue = JSON(value)["value"].double
-            print(convertedValue)
-            cell.NumberLabel.text = String(convertedValue!)
-        case .failure(let error):
-            print(error)
-        }
-    }
 }
 
 

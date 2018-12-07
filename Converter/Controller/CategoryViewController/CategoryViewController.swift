@@ -9,18 +9,24 @@
 import UIKit
 import RealmSwift
 
-protocol categoryProtocol : class{
-//    func categorySelected(category : String)
-    func receiveData(data: String)
-}
 
 class CategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+    private var tapOnScreen: UITapGestureRecognizer!
     
-    weak var categoryDelegate : categoryProtocol?
+    @IBOutlet weak var CategorySearchBar: UISearchBar!
+    
+    
+    @IBAction func tapToDismissSearch(_ sender: Any) {
+        self.CategorySearchBar.resignFirstResponder()
+    }
+    
+    
+    var requests : Array<Any>?
+    
     var dataToPass : String?
     
     var categories : Results<UnitCategory>?
-    let realm = try! Realm()
+    lazy var realm = try! Realm()
     // You only need to do this once (per thread)
     @IBOutlet weak var categoryTableView: UITableView!
     
@@ -30,6 +36,13 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         if #available(iOS 9.0, *) {
             categoryTableView.cellLayoutMarginsFollowReadableWidth = true
         }
+        
+        
+        self.tapOnScreen = UITapGestureRecognizer(target: self, action: Selector("tapToDismissSearch:"))
+
+        self.view.addGestureRecognizer(self.tapOnScreen)
+        tapOnScreen.cancelsTouchesInView = false
+        
         
         // Register nib custom table cell
         
@@ -43,39 +56,49 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view, typically from a nib.
        
         self.transitioningDelegate = self
+        
+        CategorySearchBar.delegate = self
 
 
         loadCategory()
-        
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadCategory()
     }
     
     func loadCategory() {
 //        "id": Int(category["id"]! as! String)! as! Int,
         let categoryModel = CategoryModel()
+        let defaultPath = Realm.Configuration.defaultConfiguration.fileURL?.path
+        let alreadyExists = FileManager.default.fileExists(atPath: defaultPath!)
         
-        for category in categoryModel.categoryDataset {
-
-            try! realm.write {
-                realm.create(UnitCategory.self, value: [ "name": category["name"] as! String, "items" : category["items"]], update: true)
+        if !alreadyExists {
+            for category in categoryModel.categoryDataset {
+                
+                try! realm.write {
+                    realm.create(UnitCategory.self, value: [ "name": category["name"] as! String, "items" : category["items"]], update: true)
+                }
+                
             }
-            
         }
         
-        
         categories = realm.objects(UnitCategory.self)
-        
+        requests = Array((categories?.filter("picked == true"))!)
         categoryTableView.reloadData()
 
     }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return categories?.count ?? 1
+       return requests?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! TableViewCell
-        cell.cellLabel.text = categories?[indexPath.row].name
-        cell.cellImage.image = UIImage(named: "temp")
+        cell.cellLabel.text = categories?.filter("picked == true")[indexPath.row].name
+        cell.cellImage.image = UIImage(named: (categories?.filter("picked == true")[indexPath.row].name)!)
+        cell.delegate = self
         cell.customBackgroundColor = UIColor(hexString: "941100")
         
         cell.contentView.backgroundColor = UIColor.clear
@@ -105,11 +128,11 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectedCellBackground : UIColor?
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("category from view controller", (categories?[indexPath.row].name)!)
         
+        self.CategorySearchBar.resignFirstResponder()
         dataToPass = categories?[indexPath.row].name
 //        self.categoryDelegate?.categorySelected(category: (categories?[indexPath.row].name)!)
-      print("before sending", dataToPass!)
+      
         self.performSegue(withIdentifier: "unitSegue", sender: Any?.self)
         
         categoryTableView.deselectRow(at: indexPath, animated: true)
@@ -127,7 +150,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
                 destinationVC.selectedCategory = categories?[rowIndex]
                 destinationVC.titleName = (categories?[rowIndex].name)!
                 if let cell = categoryTableView.cellForRow(at: categoryTableView.indexPathForSelectedRow!)! as? TableViewCell {
-                    print(cell)
+
                     destinationVC.colorToPass = cell.customBackgroundColor
                 }
             }
@@ -136,11 +159,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         }
         
-        func sendData() {
-            print("started sending", dataToPass!)
-            
-            categoryDelegate?.receiveData(data: dataToPass!)
-        }
+
     }
 
 extension CategoryViewController: UIViewControllerTransitioningDelegate {

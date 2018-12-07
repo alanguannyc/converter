@@ -18,39 +18,37 @@ extension UnitViewController : typerProtocol{
     
     // MARK: - Delegate Methods
     func numberButtonTapped(unit: String, value: Double) {
-        print("when number buttoned Currency list has", value)
+        
         self.unitToMoniter = unit
         self.unitValueToMoniter = value
-        var indexOfChangingUnit : Int?
-        var newItem : [String: Double]?
+//        var indexOfChangingUnit : Int?
+//        var newItem : [String: Double]?
 
         
         
         if (titleName == "Currency") {
-            for currencyItem in currency {
-                
-                indexOfChangingUnit = currency.firstIndex(where: {$0.contains(where: {($0.key == unit)})})
-                
-                newItem = updateExchangeRate(dict: currencyItem, unit: unit, value: value)
-                print("the new item", newItem)
-                
-                multiplier = value / currency[indexOfChangingUnit!][unit]!
-//                for (key,val )in currency[indexOfChangingUnit!] {
-//                    if key == unit {
-//                        multiplier = value / val
-//                    }
-//                }
-            }
-//            if let newItemValue = newItem {
-//                currency[indexOfChangingUnit!] = newItemValue
-//            }
-//            
-            print("the Index of item", indexOfChangingUnit)
-            print("the item", newItem, multiplier)
-
             
+            multiplier = value / (selectedCategory?.items.filter("name == '\(unit)'")[0].value)!
+//            var newitem = selectedCategory?.items.first(where: { (unitItem) -> Bool in
+//                unitItem.name == unit
+//            })
+            
+            try! realm.write {
+                selectedCategory?.baseValue = multiplier!
+            }
+            
+//            for currencyItem in currency {
+//
+//                indexOfChangingUnit = currency.firstIndex(where: {$0.contains(where: {($0.key == unit)})})
+//                var OriginalValue = unitItems?.filter("name == '\(unit)'")[0].value
+//
+//                newItem = updateExchangeRate(dict: currencyItem, unit: unit, value: value)
+//
+//                multiplier = value / OriginalValue!
+//
+//            }
+
         }
-        
         
         
         itemTableView.reloadData()
@@ -69,15 +67,20 @@ extension UnitViewController : typerProtocol{
     }
     
     func updateUnitNumberLabel(unit : String, value : Double, cell : UnitTableViewCell) {
+        
+        try! realm.write {
+            selectedCategory?.baseValue = value
+        }
+        
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         
-        let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+        let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!, value: (selectedCategory?.baseValue)!)
         var newBase = CategoryMeasurement.createNewValue(category: (selectedCategory?.name)!, unit: unit, value: value)
         switch newBase {
         case .unitLength(let value, let baseValue):
-            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!, value: (selectedCategory?.baseValue)!)
             switch cellUnit {
                 case .unitLength(let singleCellUnit, let value):
                     if formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue)) == "0" {
@@ -92,7 +95,7 @@ extension UnitViewController : typerProtocol{
             }
             
         case .unitArea(let value, let baseValue):
-            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!, value: (selectedCategory?.baseValue)!)
             switch cellUnit {
             case .unitArea(let singleCellUnit, let value):
                 if formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue)) == "0" {
@@ -106,7 +109,7 @@ extension UnitViewController : typerProtocol{
                 break
             }
         case .unitVolume( _, let baseValue):
-            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            let cellUnit = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!, value: (selectedCategory?.baseValue)!)
             switch cellUnit {
             case .unitVolume(let singleCellUnit, _):
                 if formatter.string(for: singleCellUnit.convertedValue(basevalue: baseValue)) == "0" {
@@ -134,19 +137,18 @@ extension UnitViewController : typerProtocol{
   
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (titleName == "Currency" ) {
-            return currency.count
-        } else {
-            return (requests?.count)!
-        }
-        
+//        if (titleName == "Currency" ) {
+//            return currency.count
+//        } else {
+//            return (requests?.count)!
+//        }
+        return (requests?.count)!
 //        return (selectedCategory?.items.filter("picked == true").count)!
 
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("Deleted")
             
             selectedCategory?.items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -173,27 +175,36 @@ extension UnitViewController : typerProtocol{
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         if (titleName == "Currency")  {
-            if (multiplier == nil) {
-                for (item, _) in currency[indexPath.row] {
-                    cell.UnitLabel.text = item
-                    cell.NumberLabel.text = String(0.0)
-                }
+            if (selectedCategory?.baseValue == nil) {
+                cell.UnitLabel.text = unitItems![indexPath.row].name
+                cell.NumberLabel.text = String(0.0)
+//                for (item, _) in unitItems![indexPath.row] {
+//                    cell.UnitLabel.text = item
+//
+//                }
             }
-            else if (multiplier != nil) {
-                for (item, value) in currency[indexPath.row] {
-                    cell.UnitLabel.text = item
-                    cell.NumberLabel.text = formatter.string(for: value * multiplier!)
-                } } else {
-                for (item, value) in currency[indexPath.row] {
-                    cell.UnitLabel.text = item
-                    cell.NumberLabel.text = String(value)
-                        }
+            else if (selectedCategory?.baseValue != nil) {
+                cell.UnitLabel.text = unitItems![indexPath.row].name
+                cell.NumberLabel.text = formatter.string(for: unitItems![indexPath.row].value * (selectedCategory?.baseValue)!)
+//                for (item, value) in currency[indexPath.row] {
+//                    cell.UnitLabel.text = item
+//                    cell.NumberLabel.text = formatter.string(for: value * multiplier!)
+//                }
                 
-        }
+            } else {
+                cell.UnitLabel.text = unitItems![indexPath.row].name
+                cell.NumberLabel.text = formatter.string(for: unitItems![indexPath.row].value)
+//                for (item, value) in currency[indexPath.row] {
+//                    cell.UnitLabel.text = item
+//                    cell.NumberLabel.text = String(value)
+//
+//                }
+                
+            }
         
         }
         else if unitToMoniter == nil {
-            let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!)
+            let initalValue = CategoryMeasurement.initalValue(Type: selectedCategory!.name, unit: cell.UnitLabel.text!, value: (selectedCategory?.baseValue)!)
             
             changeCellLabel(cell: cell, initalValue: initalValue)
         } 
@@ -203,7 +214,6 @@ extension UnitViewController : typerProtocol{
         }
         
         cell.selectedCategory = selectedCategory?.name
-//        basevalue = (initalValue?.changeBaseValue(value: Double(cell.NumberLabel.text!)!))!
         
         //change highlight background color of cells
         let backgroundView = UIView()
@@ -239,14 +249,11 @@ extension UnitViewController : typerProtocol{
 //                UIStackView.animateVisibilityOfViews([cell.UnitCalculatorView], hidden: !cell.UnitCalculatorView.isHidden)
         self.itemTableView.beginUpdates()
         itemTableView.reloadData()
-        self.itemTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+//        self.itemTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         self.itemTableView.endUpdates()
 
         self.itemTableView.deselectRow(at: indexPath, animated: false)
-        
-        
-        
-
+    
     }
 
     

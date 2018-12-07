@@ -10,7 +10,7 @@ import RealmSwift
 
 class UnitCategory: Object {
     @objc dynamic var name = ""
-//    @objc dynamic var id = 0
+    @objc dynamic var baseValue : Double = 0.0
     @objc dynamic var picked : Bool = true
     let items = List<UnitItem>()
     

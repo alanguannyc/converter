@@ -18,7 +18,13 @@ protocol DataModelDelegate: class {
     func receiveData(data: String)
 }
 
-class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, reloadOriginalDataTable  {
+    func reloadTable() {
+        unitItems = selectedCategory?.items.filter("picked == true")
+         requests = Array((selectedCategory?.items.filter("picked == true"))!)
+        itemTableView.reloadData()
+    }
+    
     var currency = [[String : Double]]()
     var dataToPass : String?
     
@@ -52,8 +58,6 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
     weak var dataDelegate: DataModelDelegate?
     
     func sendData() {
-        print("started sending")
-        
         dataDelegate?.receiveData(data: dataToPass!)
     }
     
@@ -75,7 +79,7 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
    
     override func viewWillAppear(_ animated: Bool) {
         unitItems = selectedCategory?.items.filter("picked == true")
-        itemTableView.reloadData()
+//        itemTableView.reloadData()
         
 //        DispatchQueue.main.async {
 //            self.itemTableView.reloadData()
@@ -104,7 +108,7 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Load Item Method
     func loadItems() {
         unitItems = selectedCategory?.items.filter("picked == true")
-        
+//        itemTableView.reloadData()
 
     }
     // Auto Update the size of the UITableView 
@@ -126,43 +130,11 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         requests = Array((selectedCategory?.items.filter("picked == true"))!)
         // Update Currency Array
-        var symbols : String = ""
-        for request in unitItems! {
-//            symbols += (Currency.CurrencyUnit(rawValue: request.name)?.currencyIdentifier)! + ","
-        }
-        
-//        let baseParams: Parameters = [
-//            "symbols" : symbols.dropLast(),
-////            "api_key" : Currency.API_KEY
-//        ]
+
         if selectedCategory!.name == "Currency" {
-            Alamofire.request(Currency.baseURL, method: .get, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
-                print("Request: \(response.request)")
-                switch response.result {
-                case .success(let value):
-                    
-                    let json = JSON(value)["rates"]
-                    for item in self.unitItems! {
-                        if (item.name == "Euro" ){
-                            let newCurrency = ["EUR" : 1.0]
-                            self.currency.append(newCurrency as! [String : Double])
-                        } else {
-                            
-                        let newCurrency = [(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)! : json[(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)!].double]
-                            self.currency.append(newCurrency as! [String : Double])
-                        }
-                        
-                        
-                    }
-                    
-                    print("JSON: \(json)")
-                    
-                    
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            updateCurrencyList()
         }
+        WriteCurrencyValueToRealm()
         
         
         itemTableView.register(UINib(nibName: "UnitTableViewCell", bundle: nil), forCellReuseIdentifier: "UnitTableViewCell")
@@ -176,7 +148,7 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         itemTableView.dragDelegate = self
         itemTableView.dropDelegate = self
         
-       
+        
         // Do any additional setup after loading the view.
         
         
@@ -199,8 +171,67 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         itemTableView.layoutIfNeeded()
     }
     
-//    var basevalue = Measurement(value: 0.0, unit: UnitLength.meters)
+    // MARK: - Update Currency List
+    func updateCurrencyList() {
+        Alamofire.request(Currency.baseURL, method: .get, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
+            print("Request: \(response.request)")
+            switch response.result {
+            case .success(let value):
+                
+                let json = JSON(value)["rates"]
+                for item in self.unitItems! {
+                    if (item.name == "Euro" ){
+                        let newCurrency = ["EUR" : 1.0]
+                        self.currency.append(newCurrency as! [String : Double])
+                    } else {
+                        
+                        let newCurrency = [(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)! : json[(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)!].double]
+                        self.currency.append(newCurrency as! [String : Double])
+                    }
+                    
+                    
+                }
+                
+                print("JSON: \(json)")
+                
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+       itemTableView.reloadData()
+    }
     
+    func WriteCurrencyValueToRealm() {
+        
+        let CategoryObject = realm.objects(UnitCategory.self)
+        Alamofire.request(Currency.baseURL, method: .get, encoding: URLEncoding(destination: .queryString)).responseJSON { (response) in
+            
+            switch response.result {
+            case .success(let value):
+                
+                let json = JSON(value)["rates"]
+                
+                for item in CategoryObject.filter("name == 'Currency'")[0].items {
+                    if item.name == "Euro" {
+                        try! self.realm.write {
+                            item.value = 1
+                        }
+                    } else {
+                            try! self.realm.write {
+                                item.value = json[(Currency.CurrencyUnit(rawValue: item.name)?.currencyIdentifier)!].double!
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        itemTableView.reloadData()
+    }
+    
+    // MARK: - Table View Layout method
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.layoutIfNeeded()
     }
@@ -251,7 +282,7 @@ class UnitViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if segue.identifier == "AddMoreItem" {
             let destinationVC = segue.destination as! UINavigationController
             let targetController = destinationVC.topViewController as! AddMoreUnitTableViewController
-
+            targetController.reloadDataDelegate = self
             targetController.categoryName = selectedCategory
         }
     }

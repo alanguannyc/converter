@@ -13,6 +13,12 @@
 		E72BAEC22188E54300291B66 /* AddMoreUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */; };
 		E72BAEC42188F58C00291B66 /* AddMoreUnitSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */; };
 		E72BAECB2190BCFA00291B66 /* UnitViewControllerSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAECA2190BCFA00291B66 /* UnitViewControllerSwipe.swift */; };
+		E72BAED421B8577D00291B66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E72BAED321B8577D00291B66 /* Assets.xcassets */; };
+		E72BAED621B97C9500291B66 /* CategorySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAED521B97C9500291B66 /* CategorySearch.swift */; };
+		E72BAED821B9918500291B66 /* AddMoreUnit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E72BAED721B9918500291B66 /* AddMoreUnit.storyboard */; };
+		E72BAEDA21B991E100291B66 /* AddMoreCategory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E72BAED921B991E100291B66 /* AddMoreCategory.storyboard */; };
+		E72BAEDF21B9976200291B66 /* AddMoreCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEDE21B9976200291B66 /* AddMoreCategoryTableViewController.swift */; };
+		E72BAEE121B9AA4500291B66 /* CategoryViewControllerSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BAEE021B9AA4500291B66 /* CategoryViewControllerSwipe.swift */; };
 		E748A0572170EE5D00792BAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0562170EE5D00792BAA /* AppDelegate.swift */; };
 		E748A0592170EE5D00792BAA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E748A0582170EE5D00792BAA /* CategoryViewController.swift */; };
 		E748A05C2170EE5D00792BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E748A05A2170EE5D00792BAA /* Main.storyboard */; };
@@ -28,7 +34,6 @@
 		E792EC1B2177B61400A4CFE2 /* UnitModelMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792EC1A2177B61400A4CFE2 /* UnitModelMethods.swift */; };
 		E792EC1E2179169A00A4CFE2 /* UnitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792EC1D2179169A00A4CFE2 /* UnitTableViewCell.swift */; };
 		E792EC20217916E000A4CFE2 /* UnitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E792EC1F217916E000A4CFE2 /* UnitTableViewCell.xib */; };
-		E792EC24217936EB00A4CFE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E792EC23217936EB00A4CFE2 /* Assets.xcassets */; };
 		E792EC2621793D6100A4CFE2 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792EC2521793D6100A4CFE2 /* RoundButton.swift */; };
 		E792EC28217A452A00A4CFE2 /* StackViewToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792EC27217A452A00A4CFE2 /* StackViewToggle.swift */; };
 		E792EC2A217E21ED00A4CFE2 /* UnitCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792EC29217E21ED00A4CFE2 /* UnitCategory.swift */; };
@@ -47,6 +52,12 @@
 		E72BAEC12188E54300291B66 /* AddMoreUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoreUnitTableViewController.swift; sourceTree = "<group>"; };
 		E72BAEC32188F58C00291B66 /* AddMoreUnitSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoreUnitSearch.swift; sourceTree = "<group>"; };
 		E72BAECA2190BCFA00291B66 /* UnitViewControllerSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitViewControllerSwipe.swift; sourceTree = "<group>"; };
+		E72BAED321B8577D00291B66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E72BAED521B97C9500291B66 /* CategorySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySearch.swift; sourceTree = "<group>"; };
+		E72BAED721B9918500291B66 /* AddMoreUnit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddMoreUnit.storyboard; sourceTree = "<group>"; };
+		E72BAED921B991E100291B66 /* AddMoreCategory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddMoreCategory.storyboard; sourceTree = "<group>"; };
+		E72BAEDE21B9976200291B66 /* AddMoreCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoreCategoryTableViewController.swift; sourceTree = "<group>"; };
+		E72BAEE021B9AA4500291B66 /* CategoryViewControllerSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewControllerSwipe.swift; path = Converter/Controller/CategoryViewController/CategoryViewControllerSwipe.swift; sourceTree = SOURCE_ROOT; };
 		E748A0532170EE5D00792BAA /* Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Converter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E748A0562170EE5D00792BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E748A0582170EE5D00792BAA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -63,7 +74,6 @@
 		E792EC1A2177B61400A4CFE2 /* UnitModelMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitModelMethods.swift; sourceTree = "<group>"; };
 		E792EC1D2179169A00A4CFE2 /* UnitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTableViewCell.swift; sourceTree = "<group>"; };
 		E792EC1F217916E000A4CFE2 /* UnitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnitTableViewCell.xib; sourceTree = "<group>"; };
-		E792EC23217936EB00A4CFE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E792EC2521793D6100A4CFE2 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		E792EC27217A452A00A4CFE2 /* StackViewToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewToggle.swift; sourceTree = "<group>"; };
 		E792EC29217E21ED00A4CFE2 /* UnitCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitCategory.swift; sourceTree = "<group>"; };
@@ -117,8 +127,18 @@
 			isa = PBXGroup;
 			children = (
 				E748A0582170EE5D00792BAA /* CategoryViewController.swift */,
+				E72BAEE021B9AA4500291B66 /* CategoryViewControllerSwipe.swift */,
+				E72BAED521B97C9500291B66 /* CategorySearch.swift */,
 			);
 			path = CategoryViewController;
+			sourceTree = "<group>";
+		};
+		E72BAEDD21B9931800291B66 /* AddMoreCategory */ = {
+			isa = PBXGroup;
+			children = (
+				E72BAEDE21B9976200291B66 /* AddMoreCategoryTableViewController.swift */,
+			);
+			path = AddMoreCategory;
 			sourceTree = "<group>";
 		};
 		E748A04A2170EE5D00792BAA = {
@@ -147,7 +167,7 @@
 				E748A06F2170F65E00792BAA /* Model */,
 				E748A06A2170F19E00792BAA /* Controller */,
 				E748A0622170EE5E00792BAA /* Info.plist */,
-				E792EC23217936EB00A4CFE2 /* Assets.xcassets */,
+				E72BAED321B8577D00291B66 /* Assets.xcassets */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -159,6 +179,7 @@
 				E7C3861E217671720043BC78 /* DismissAnimator.swift */,
 				E7C3861A217653080043BC78 /* UIColor.swift */,
 				E72BAEC92190BB1D00291B66 /* CategoryViewController */,
+				E72BAEDD21B9931800291B66 /* AddMoreCategory */,
 				E792EC1C2177BDCB00A4CFE2 /* UnitViewController */,
 				E72BAEC52188F59000291B66 /* AddMoreUnitController */,
 			);
@@ -182,8 +203,10 @@
 		E748A07421712A2500792BAA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E748A05A2170EE5D00792BAA /* Main.storyboard */,
 				E748A05F2170EE5E00792BAA /* LaunchScreen.storyboard */,
+				E748A05A2170EE5D00792BAA /* Main.storyboard */,
+				E72BAED921B991E100291B66 /* AddMoreCategory.storyboard */,
+				E72BAED721B9918500291B66 /* AddMoreUnit.storyboard */,
 				E748A07521712A3400792BAA /* Custom Cell */,
 			);
 			path = View;
@@ -203,8 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				E748A07B217535DD00792BAA /* UnitViewController.swift */,
-				E72BAECA2190BCFA00291B66 /* UnitViewControllerSwipe.swift */,
 				E792EC142177B1E600A4CFE2 /* UnitViewControllerData.swift */,
+				E72BAECA2190BCFA00291B66 /* UnitViewControllerSwipe.swift */,
 				E792EC162177B47900A4CFE2 /* UnitViewControllerDragDrop.swift */,
 				E792EC27217A452A00A4CFE2 /* StackViewToggle.swift */,
 			);
@@ -291,11 +314,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E72BAED821B9918500291B66 /* AddMoreUnit.storyboard in Resources */,
 				E748A0782171392A00792BAA /* CustomCell.xib in Resources */,
 				E792EC20217916E000A4CFE2 /* UnitTableViewCell.xib in Resources */,
+				E72BAEDA21B991E100291B66 /* AddMoreCategory.storyboard in Resources */,
 				E748A0772171355000792BAA /* TableViewCell.swift in Resources */,
 				E748A0612170EE5E00792BAA /* LaunchScreen.storyboard in Resources */,
-				E792EC24217936EB00A4CFE2 /* Assets.xcassets in Resources */,
+				E72BAED421B8577D00291B66 /* Assets.xcassets in Resources */,
 				E748A05C2170EE5D00792BAA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,6 +384,7 @@
 				E792EC2621793D6100A4CFE2 /* RoundButton.swift in Sources */,
 				E792EC28217A452A00A4CFE2 /* StackViewToggle.swift in Sources */,
 				E792EC1E2179169A00A4CFE2 /* UnitTableViewCell.swift in Sources */,
+				E72BAEDF21B9976200291B66 /* AddMoreCategoryTableViewController.swift in Sources */,
 				E792EC152177B1E600A4CFE2 /* UnitViewControllerData.swift in Sources */,
 				E72BAEC22188E54300291B66 /* AddMoreUnitTableViewController.swift in Sources */,
 				E7C3861D217662560043BC78 /* ScaleSegue.swift in Sources */,
@@ -370,9 +396,11 @@
 				E72BAEC02183B3B900291B66 /* LengthModel.swift in Sources */,
 				C721814F21AA3F31009EC3A1 /* Currency.swift in Sources */,
 				E792EC172177B47900A4CFE2 /* UnitViewControllerDragDrop.swift in Sources */,
+				E72BAEE121B9AA4500291B66 /* CategoryViewControllerSwipe.swift in Sources */,
 				E792EC2A217E21ED00A4CFE2 /* UnitCategory.swift in Sources */,
 				E748A07A21751E1500792BAA /* CardView.swift in Sources */,
 				E792EC192177B51D00A4CFE2 /* UnitModel.swift in Sources */,
+				E72BAED621B97C9500291B66 /* CategorySearch.swift in Sources */,
 				E72BAEC42188F58C00291B66 /* AddMoreUnitSearch.swift in Sources */,
 				E748A0572170EE5D00792BAA /* AppDelegate.swift in Sources */,
 				E7C3861F217671720043BC78 /* DismissAnimator.swift in Sources */,
@@ -524,6 +552,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MSMWZ8UAD2;
 				INFOPLIST_FILE = Converter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -543,6 +572,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MSMWZ8UAD2;
 				INFOPLIST_FILE = Converter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

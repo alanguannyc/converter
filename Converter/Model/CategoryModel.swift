@@ -92,12 +92,40 @@ struct CategoryModel {
                 
                 ] as AnyObject],
             
-            ["name":"Currency" as AnyObject, "items": [
-                ["name":"Euro","picked" : true],
-                ["name":"Yuan","picked" : true],
-                ["name":"Yen","picked" : true],
-                ["name":"US Dollar","picked" : true],
-                ["name":"Pound Sterling","picked" : false],
+            ["name":"Currency" as AnyObject,  "items": [
+                ["name":"Bulgarian Lev","value" : 0.0,"picked" : false],
+                ["name":"Canadian Dollar","value" : 0.0,"picked" : false],
+                ["name":"Brazilian Real","value" : 0.0,"picked" : false],
+                ["name":"Forint","value" : 0.0,"picked" : false],
+                ["name":"Danish Krone","value" : 0.0,"picked" : false],
+                ["name":"Yen","value" : 0.0,"picked" : false],
+                ["name":"New Israeli Shekel","value" : 0.0,"picked" : false],
+                ["name":"Turkish Lira","value" : 0.0,"picked" : false],
+                ["name":"Leu","value" : 0.0,"picked" : false],
+                ["name":"Pound Sterling","value" : 0.0,"picked" : false],
+                ["name":"Philippine Peso","value" : 0.0,"picked" : false],
+                ["name":"Croatian Kuna","value" : 0.0,"picked" : false],
+                ["name":"Norwegian Krone","value" : 0.0,"picked" : false],
+                ["name":"US Dollar","value" : 0.0,"picked" : true],
+                ["name":"Mexican Peso","value" : 0.0,"picked" : false],
+                ["name":"Australian Dollar","value" : 0.0,"picked" : false],
+                ["name":"Rupiah","value" : 0.0,"picked" : false],
+                ["name":"South Korean Won","value" : 0.0,"picked" : false],
+                ["name":"Hong Kong Dollar","value" : 0.0,"picked" : false],
+                ["name":"Rand","value" : 0.0,"picked" : false],
+                ["name":"Iceland Krona","value" : 0.0,"picked" : false],
+                ["name":"Czech Koruna","value" : 0.0,"picked" : false],
+                ["name":"Baht","value" : 0.0,"picked" : false],
+                ["name":"Malaysian Ringgit","value" : 0.0,"picked" : false],
+                ["name":"New Zealand Dollar","value" : 0.0,"picked" : false],
+                ["name":"PZloty","value" : 0.0,"picked" : false],
+                ["name":"Swedish Krona","value" : 0.0,"picked" : false],
+                ["name":"Russian Ruble","value" : 0.0,"picked" : false],
+                ["name":"Singapore Dollar","value" : 0.0,"picked" : false],
+                ["name":"Swiss Franc","value" : 0.0,"picked" : false],
+                ["name":"Indian Rupee","value" : 0.0,"picked" : false],
+                ["name":"Yuan","value" : 0.0,"picked" : true],
+                ["name":"Euro","value" : 0.0,"picked" : true]
           
                 
                 ] as AnyObject]

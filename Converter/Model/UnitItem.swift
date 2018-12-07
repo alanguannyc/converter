@@ -12,7 +12,8 @@ import RealmSwift
 class UnitItem: Object {
 //    @objc dynamic var index : Int = 0
     @objc dynamic var name = ""
-    @objc dynamic var picked : Bool = true
+    @objc dynamic var picked = true
+    @objc dynamic var value : Double = 0
     
     var ParentCategory = LinkingObjects(fromType: UnitCategory.self, property: "items")
     

@@ -20,7 +20,7 @@ extension UnitViewController: SwipeTableViewCellDelegate {
             
             self.updateModel(at: indexPath)
             action.fulfill(with: .delete)
-            
+            self.itemTableView.reloadData()
         }
         
         deleteAction.image = UIImage(named: "Trash-Icon")
@@ -39,13 +39,18 @@ extension UnitViewController: SwipeTableViewCellDelegate {
 
     // MARK: - Delete by swipe
     func updateModel(at indexPath: IndexPath) {
+        print(indexPath.row, requests,selectedCategory!.items)
+        
         requests?.remove(at: indexPath.row)
+        
         if let selectedItem = self.selectedCategory?.items[indexPath.row] {
             do{
-                try self.realm.write {
-                    self.selectedCategory!.items[indexPath.row].picked = false
+                try realm.write {
+                    print(indexPath.row)
+                    selectedCategory!.items.filter("picked == true")[indexPath.row].picked = false
+//                    requests = Array((selectedCategory?.items.filter("picked == true"))!)
                     //                        self.unitItems = self.selectedCategory?.items.filter("picked == true")
-                    
+//                    print("deleted",  selectedCategory?.items[indexPath.row])
                     
                 }
             } catch {

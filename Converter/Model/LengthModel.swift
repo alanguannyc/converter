@@ -18,15 +18,15 @@ enum CategoryMeasurement {
     case unitVolume(Volume, Measurement<UnitVolume>)
     
     
-    static func initalValue(Type: String, unit : String) -> CategoryMeasurement {
+    static func initalValue(Type: String, unit : String, value : Double) -> CategoryMeasurement {
         switch (Type) {
             
             case "Length":
-                return CategoryMeasurement.unitLength(CategoryMeasurement.Length(rawValue: unit)!, Measurement(value: 0.0, unit: UnitLength.meters))
+                return CategoryMeasurement.unitLength(CategoryMeasurement.Length(rawValue: unit)!, Measurement(value: value, unit: UnitLength.meters))
             case "Area":
-                return CategoryMeasurement.unitArea(CategoryMeasurement.Area(rawValue: unit)!, Measurement(value: 0.0, unit: UnitArea.squareMeters))
+                return CategoryMeasurement.unitArea(CategoryMeasurement.Area(rawValue: unit)!, Measurement(value: value, unit: UnitArea.squareMeters))
             case "Volume":
-                return CategoryMeasurement.unitVolume(CategoryMeasurement.Volume(rawValue: unit)!, Measurement(value: 0.0, unit: UnitVolume.liters))
+                return CategoryMeasurement.unitVolume(CategoryMeasurement.Volume(rawValue: unit)!, Measurement(value: value, unit: UnitVolume.liters))
         default:
             fatalError("No such category")
         }

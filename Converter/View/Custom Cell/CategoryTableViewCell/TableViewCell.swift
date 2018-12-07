@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class TableViewCell: UITableViewCell {
+class TableViewCell: SwipeTableViewCell {
     
     
     @IBOutlet weak var cellBackground: UIView!
